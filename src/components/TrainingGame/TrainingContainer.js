@@ -124,7 +124,6 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
 
     //<p>TODO add Quota panel...</p>
-    //<p>TODO add Tips panel...</p>
     //<p>TODO add Lamps panel...</p>
 
     return (<>
