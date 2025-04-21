@@ -79,7 +79,6 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     const attemptTraining = (trainingFacility) => {
 
         let failRate = trainingFacility.getFailureChance(stamina);
-        console.log("Fail rate: " + failRate);
         // Returns a random integer from 1 to 100:
         let succcessRoll = Math.floor(Math.random() * 100) + 1;
 
@@ -122,9 +121,6 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
             setCharacterSheet(clonedSheet);
 
-        }
-        else {
-            console.log("waoh nooo");
         }
 
         return isSuccess;
@@ -187,7 +183,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         if (allowNextTurn)
             setCurrentTurn(currentTurn + 1);
         else
-            finalizeTraining();
+            finalizeTraining(characterSheet);
         
     }
 

@@ -54,8 +54,8 @@ function App() {
                       name={charName}
                       pronouns={charPronouns}
                       image={charImage}
-                          finalizeTraining={finalizeTraining}
-                          className="container"
+                      finalizeTraining={finalizeTraining}
+                      className="container"
                       />
               )
                   : <ResultsContainer
