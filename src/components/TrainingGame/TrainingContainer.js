@@ -79,8 +79,11 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     const attemptTraining = (trainingFacility) => {
 
         let failRate = trainingFacility.getFailureChance(stamina);
+        console.log("Fail rate: " + failRate);
+        // Returns a random integer from 1 to 100:
+        let succcessRoll = Math.floor(Math.random() * 100) + 1;
 
-        let isSuccess = failRate < 75; // TODO Not using the actual randomization yet
+        let isSuccess = failRate < succcessRoll; // TODO Show fail rates when selecting training!
 
         if (isSuccess) {
             let clonedSheet = { ...characterSheet };
@@ -128,7 +131,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     };
 
     const attemptRest = () => {
-        let restVariableRoll = 40;
+        let restVariableRoll = 30 + Math.floor(Math.random() * 21);
         updateStamina(restVariableRoll);
     }
 
