@@ -1,10 +1,13 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 
 import { TrainingEffectEnums } from '../../utility/enums';
+import { makeStartingCharacterSheet } from '../../utility/characterSheets';
+import { makeQuotas } from '../../utility/scenarioMechanics';
 
 import TrainingActivityPanel from './TrainingActivityPanel'
 import MAWFFCard from "../PlayerCard/MAWFFCard";
 import TipsPanel from './TipsPanel';
+import QuotaPanel from './QuotaPanel';
 
 function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
@@ -12,30 +15,26 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
     const [stamina, setStamina] = useState(null);
     const [pollen, setPollen] = useState(null);
-    const [turnsLeft, setTurnsLeft] = useState(null);
+    //const [turnsLeft, setTurnsLeft] = useState(null);
+
+    const [currentTurn, setCurrentTurn] = useState(null);
+    const [quotas, setQuotas] = useState(null);
     
     const maxStamina = 100;
     const baseStamina = 100;
     const basePollen = 0;
-    const baseTurnsLeft = 20;
+    //const baseTurnsLeft = 20;
 
-
-    const reset = () => {
-        setCharacterSheet({
-            Might: 50,
-            Acuity: 50,
-            Willpower: 50,
-            Fluorescence: 50,
-            Fluffiness: 50,
-            SkillPoints: 0,
-
-            skills: []
-        });
+    const reset = useCallback(() => {
+        setCharacterSheet(makeStartingCharacterSheet(name, pronouns, image));
 
         setStamina(baseStamina);
         setPollen(basePollen);
-        setTurnsLeft(baseTurnsLeft);
-    };
+        //setTurnsLeft(baseTurnsLeft);
+
+        setCurrentTurn(1);
+        setQuotas(makeQuotas());
+    }, [name, pronouns, image]);
 
     const updateStamina = (staminaChange) => {
         if (staminaChange + stamina > maxStamina) {
@@ -49,19 +48,27 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         }
     };
 
-    const nullifyCharsheet = () => {
+    const nullifyTrainingScenario = () => {
         setCharacterSheet(null);
         setStamina(null);
         setPollen(null);
-        setTurnsLeft(null);
+        //setTurnsLeft(null);
+        setCurrentTurn(null);
+        setQuotas(null);
     };
+
+    const turnsLeft = useMemo(() => {
+        if (quotas && currentTurn) {
+            return quotas[quotas.length - 1].turnDeadline - currentTurn;
+        } 
+    }, [quotas, currentTurn]);
 
     useEffect(() => {
         if (!name?.length || !pronouns?.length || !image?.length)
-            nullifyCharsheet();
+            nullifyTrainingScenario();
         else
             reset();
-    }, [name, pronouns, image]);
+    }, [name, pronouns, image, reset]);
 
     useEffect(() => {
         if (turnsLeft <= 0) {
@@ -71,7 +78,9 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
     const attemptTraining = (trainingFacility) => {
 
-        let isSuccess = true;
+        let failRate = trainingFacility.getFailureChance(stamina);
+
+        let isSuccess = failRate < 75; // TODO Not using the actual randomization yet
 
         if (isSuccess) {
             let clonedSheet = { ...characterSheet };
@@ -118,12 +127,16 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         return isSuccess;
     };
 
+    const attemptRest = () => {
+        let restVariableRoll = 40;
+        updateStamina(restVariableRoll);
+    }
+
     const endTurn = () => {
-        setTurnsLeft(turnsLeft - 1);
+        setCurrentTurn(currentTurn + 1);
     }
 
 
-    //<p>TODO add Quota panel...</p>
     //<p>TODO add Lamps panel...</p>
 
     return (<>
@@ -133,7 +146,14 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         {(characterSheet && turnsLeft > 0) ? <div className="row">
 
             <div className="col-lg-12 my-3">
-                Turns Left: <span className="kh-gummi">{turnsLeft}</span>
+                <QuotaPanel
+                    pollen={pollen}
+                    currentTurn={currentTurn}
+                    quotas={quotas}
+                    stamina={stamina}
+                    maxStamina={maxStamina}
+                    endCampaign={finalizeTraining}
+                />
             </div>
 
             <div className="col-lg-1">
@@ -143,6 +163,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
             <div className="col-lg-7 my-3" >
                 <TrainingActivityPanel
                     attemptTraining={attemptTraining}
+                    attemptRest={attemptRest}
                     isOpen={characterSheet !== null}
                     endTurn={endTurn}
                 />
@@ -150,9 +171,6 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
             <div className="col-lg-3 my-3" >
                 <MAWFFCard
-                    name={name}
-                    pronouns={pronouns}
-                    image={image}
                     mawffStats={characterSheet}
                 />
             </div>

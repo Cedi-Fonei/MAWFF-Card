@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 
 import { defaultFacilitiesExercise, defaultFacilitiesStudies, defaultFacilitiesMarathon, defaultFacilitiesPhotomeditation, defaultFacilitiesPreening } from '../../utility/trainingActivities';
 
-function TrainingActivityPanel({ attemptTraining, isOpen, endTurn }) { 
+function TrainingActivityPanel({ attemptTraining, attemptRest, isOpen, endTurn }) { 
 
     // PROBLEM; trainingFacilities are updating, but their displays are NOT updating.
     // I know there's something to fix this within react.js's tools but I've forgotten what it is. a ref? something else?
@@ -45,6 +45,12 @@ function TrainingActivityPanel({ attemptTraining, isOpen, endTurn }) {
         endTurn();
     }
 
+    const applyRest = () => {
+        attemptRest();
+
+        endTurn();
+    }
+
     const renderTrainingFacility = (trainingFacility, index) => {
         // Sofar so good, let's make this LEGIBLE and PRACTICAL TO USE next before we add actually training mechanics
         return (<button key={index} onClick={() => applyTraining(trainingFacility, index)}
@@ -61,6 +67,12 @@ function TrainingActivityPanel({ attemptTraining, isOpen, endTurn }) {
 
     }
 
+    const renderRestFacility = () => {
+        return (<button className="training-facility-selectable" onClick={() => applyRest()}>
+            <span className="kh-menu"><b><i>Rest</i></b></span>
+        </button>)
+    }
+
 
     return (<>
 
@@ -73,7 +85,9 @@ function TrainingActivityPanel({ attemptTraining, isOpen, endTurn }) {
             <div className="row d-flex justify-content-center">
                 {renderTrainingFacility(trainingFacilities[3], 3)}
                 {renderTrainingFacility(trainingFacilities[4], 4)}
+                {renderRestFacility()}
             </div>
+            
         </>}
 
         

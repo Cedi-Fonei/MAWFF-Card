@@ -31,17 +31,17 @@ const renderOverallTitle = (mawffStats) => {
     </div>)
 };
 
-export default function MAWFFCard({ name, pronouns, image, mawffStats }) {
+export default function MAWFFCard({ mawffStats }) {
     return (
         <div className="mawff-card">
 
             <div className="card-nouns">
                 {renderOverallTitle(mawffStats)}
-                {name}
-                {pronouns}
+                {mawffStats.Name}
+                {mawffStats.Pronouns}
             </div>
 
-            <img className="card-image" src={image} alt="Your avatar!" />
+            <img className="card-image" src={mawffStats.Image} alt="Your avatar!" />
 
             {formatAttributeRow("Might", mawffStats.Might)}
             {formatAttributeRow("Acuity", mawffStats.Acuity)}
@@ -49,24 +49,7 @@ export default function MAWFFCard({ name, pronouns, image, mawffStats }) {
             {formatAttributeRow("Fluorescence", mawffStats.Fluorescence)}
             {formatAttributeRow("Fluffiness", mawffStats.Fluffiness)}
 
-            {/*<div className="card-attribute-row">*/}
-            {/*    Acuity: {mawffStats.Acuity}*/}
-            {/*</div>*/}
-            {/*<div className="card-attribute-row">*/}
-            {/*    Willpower: {mawffStats.Willpower}*/}
-            {/*</div>*/}
-            {/*<div className="card-attribute-row">*/}
-            {/*    Fluorescence: {mawffStats.Fluorescence}*/}
-            {/*</div>*/}
-            {/*<div className="card-attribute-row">*/}
-            {/*    Fluffiness: {mawffStats.Fluffiness}*/}
-            {/*</div>*/}
+
         </div>
-
-        //<span>Ooooo card formatting placeholders!</span>
-
-        //    <p>{name} {pronouns}</p>
-
-        //    <p>STATS: {JSON.stringify(mawffStats)}</p>
     );
 }

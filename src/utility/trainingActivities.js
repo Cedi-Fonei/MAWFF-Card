@@ -2,18 +2,11 @@ import { TrainingEffectEnums } from './enums';
 
 function checkTrainingLevelup() {
     if (this.level < 5 && this.exp >= this.expToLevel) {
+
         this.level = this.level + 1;
         this.exp = this.level === 5 ? 1 : 0;
         this.expToLevel = this.level === 5 ? 1 : ((this.level + 1) * 10);
 
-        //let newLevelChanges = this.levelGains.find(lg => lg.newLevel === this.level);
-
-        //newLevelChanges.levelUpdates.forEach((growthChange) => {
-        //    let changeToUpdateIndex = this.trainingChanges.findIndex(tc => tc.effect === growthChange.effect);
-        //    let changeToUpdate = this.trainingChanges.at(changeToUpdateIndex);
-        //    changeToUpdate.value += growthChange.value;
-        //    this.trainingChanges[changeToUpdateIndex] = changeToUpdate;
-        //});
     }
 };
 
@@ -22,6 +15,24 @@ function giveTrainingExp(expGain) {
         this.exp += expGain;
     }
     
+};
+
+function checkCurrentLevelEffects() {
+    return this.trainingChanges.find(tc => tc.level === this.level).effects;
+};
+
+function getFailureChance(stamina) {
+    let thisStaminaChangeValue = this.checkCurrentLevelEffects().find(e => e.effect === TrainingEffectEnums.StaminaChange).value;
+
+    if (thisStaminaChangeValue >= 0) {
+        return 0;
+    }
+
+    let afterSpendStamina = stamina + thisStaminaChangeValue;
+
+    let staminaMidpoint = (stamina + afterSpendStamina) / 2;
+
+    return (50 - staminaMidpoint) * 2; // TODO what formula do I want to use? //(staminaMidpoint * 2);
 };
 
 export const defaultFacilitiesExercise = {
@@ -85,7 +96,9 @@ export const defaultFacilitiesExercise = {
     exp: 0,
 
     checkTrainingLevelup: checkTrainingLevelup,
-    giveTrainingExp: giveTrainingExp
+    giveTrainingExp: giveTrainingExp,
+    checkCurrentLevelEffects,
+    getFailureChance: getFailureChance
 }
 
 export const defaultFacilitiesStudies = {
@@ -149,7 +162,9 @@ export const defaultFacilitiesStudies = {
     exp: 0,
 
     checkTrainingLevelup: checkTrainingLevelup,
-    giveTrainingExp: giveTrainingExp
+    giveTrainingExp: giveTrainingExp,
+    checkCurrentLevelEffects,
+    getFailureChance: getFailureChance
 }
 
 export const defaultFacilitiesMarathon = {
@@ -213,7 +228,9 @@ export const defaultFacilitiesMarathon = {
     exp: 0,
 
     checkTrainingLevelup: checkTrainingLevelup,
-    giveTrainingExp: giveTrainingExp
+    giveTrainingExp: giveTrainingExp,
+    checkCurrentLevelEffects,
+    getFailureChance: getFailureChance
 }
 
 export const defaultFacilitiesPhotomeditation = {
@@ -277,7 +294,9 @@ export const defaultFacilitiesPhotomeditation = {
     exp: 0,
 
     checkTrainingLevelup: checkTrainingLevelup,
-    giveTrainingExp: giveTrainingExp
+    giveTrainingExp: giveTrainingExp,
+    checkCurrentLevelEffects,
+    getFailureChance: getFailureChance
 }
 
 export const defaultFacilitiesPreening = {
@@ -341,5 +360,7 @@ export const defaultFacilitiesPreening = {
     exp: 0,
 
     checkTrainingLevelup: checkTrainingLevelup,
-    giveTrainingExp: giveTrainingExp
+    giveTrainingExp: giveTrainingExp,
+    checkCurrentLevelEffects,
+    getFailureChance: getFailureChance
 }
