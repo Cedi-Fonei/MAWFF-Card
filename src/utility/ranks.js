@@ -48,10 +48,11 @@ const overallRanks = [
 
 export const findOverallRank = (totalValue) => {
     const withinRange = overallRanks.filter(ar => ar.threshold <= totalValue);
+
     return withinRange[withinRange.length - 1].rank;
 
 };
 
-// Quartz, Topaz,
-// Bismoth (intentionally moth'd), 
-// Emerald, Opal, Diamond
+// Salt, Quartz
+// Bismoth (intentionally moth'd),
+// Opal, Meteor, Ascendant

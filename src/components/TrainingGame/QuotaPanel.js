@@ -1,25 +1,8 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 
-function QuotaPanel({ pollen, currentTurn, quotas, stamina, maxStamina, endCampaign }) {
+function QuotaPanel({ pollen, currentTurn, quotas, stamina, maxStamina }) {
 
-    //const [quotas, setQuotas] = useState(null);
-
-
-    const checkQuota = useCallback(() => {
-        if (quotas && currentTurn && endCampaign) {
-            let quotaDueNow = quotas.find(q => q.turnDeadline);
-
-            if (quotaDueNow) {
-                if (pollen >= quotaDueNow.quotaScore) {
-                    console.log("TODO apply quota reward");
-                }
-                else {
-                    endCampaign();
-                }
-            }
-        }
-    }, [pollen, quotas, currentTurn, endCampaign]);
-
+    
     const endOfCampaign = useMemo(() => {
         if (quotas) {
             return quotas[quotas.length - 1].turnDeadline;
@@ -36,7 +19,7 @@ function QuotaPanel({ pollen, currentTurn, quotas, stamina, maxStamina, endCampa
         }
         let quotaNumber = quotas.findIndex(q => q === nextQuota) + 1;
 
-        return (<div>
+        return (<div className="quota-panel">
             <span className="row">Pollen: {pollen}/{nextQuota.quotaScore}</span>
             <span className="row">Turns until Quota #{quotaNumber}: {nextQuota.turnDeadline - currentTurn}</span>
             <span className="row">{endOfCampaign - currentTurn} turns left!</span>

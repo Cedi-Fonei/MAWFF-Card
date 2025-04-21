@@ -135,8 +135,60 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         updateStamina(restVariableRoll);
     }
 
+
+    const checkQuota = useCallback(() => {
+        if (quotas && currentTurn && finalizeTraining) {
+            let quotaDueNow = quotas.find(q => q.turnDeadline);
+
+            if (quotaDueNow) {
+                if (pollen >= quotaDueNow.quotaScore) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+    }, [pollen, quotas, currentTurn, finalizeTraining]);
+
+
+    const processTurnAction = (doTurnAction) => { // TODO implement this process for cleaner turn actions/presentation
+        // TODO set action-blocking/animation overlay
+
+        doTurnAction();
+
+        endTurn();
+
+        // TODO unset action-blocking/animation overlay
+    }
+
     const endTurn = () => {
-        setCurrentTurn(currentTurn + 1);
+        let nextTurnQuota = quotas.find(q => q.turnDeadline === currentTurn + 1);
+        let allowNextTurn = true;
+        if (nextTurnQuota) {
+            allowNextTurn = checkQuota();
+            if (allowNextTurn) {
+                let clonedSheet = { ...characterSheet };
+
+                clonedSheet.Might += nextTurnQuota.quotaReward.Might;
+                clonedSheet.Acuity += nextTurnQuota.quotaReward.Acuity;
+                clonedSheet.Willpower += nextTurnQuota.quotaReward.Willpower;
+                clonedSheet.Fluorescence += nextTurnQuota.quotaReward.Fluorescence;
+                clonedSheet.Fluffiness += nextTurnQuota.quotaReward.Fluffiness;
+                clonedSheet.SkillPoints += nextTurnQuota.quotaReward.SkillPoints;
+
+                setCharacterSheet(clonedSheet);
+            }
+            else {
+                console.log("Oh DAMG you didn't get the quota I guess your training ends today I'm sowwy");
+            }
+        }
+
+        if (allowNextTurn)
+            setCurrentTurn(currentTurn + 1);
+        else
+            finalizeTraining();
+        
     }
 
 
@@ -155,7 +207,6 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     quotas={quotas}
                     stamina={stamina}
                     maxStamina={maxStamina}
-                    endCampaign={finalizeTraining}
                 />
             </div>
 

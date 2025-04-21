@@ -32,24 +32,30 @@ const renderOverallTitle = (mawffStats) => {
 };
 
 export default function MAWFFCard({ mawffStats }) {
-    return (
-        <div className="mawff-card">
 
-            <div className="card-nouns">
-                {renderOverallTitle(mawffStats)}
-                {mawffStats.Name}
-                {mawffStats.Pronouns}
+    if (mawffStats) {
+        return (
+            <div className="mawff-card">
+
+                <div className="card-nouns">
+                    {renderOverallTitle(mawffStats)}
+                    {mawffStats.Name}
+                    {mawffStats.Pronouns}
+                </div>
+
+                <img className="card-image" src={mawffStats.Image} alt="Your avatar!" />
+
+                {formatAttributeRow("Might", mawffStats.Might)}
+                {formatAttributeRow("Acuity", mawffStats.Acuity)}
+                {formatAttributeRow("Willpower", mawffStats.Willpower)}
+                {formatAttributeRow("Fluorescence", mawffStats.Fluorescence)}
+                {formatAttributeRow("Fluffiness", mawffStats.Fluffiness)}
+
+
             </div>
-
-            <img className="card-image" src={mawffStats.Image} alt="Your avatar!" />
-
-            {formatAttributeRow("Might", mawffStats.Might)}
-            {formatAttributeRow("Acuity", mawffStats.Acuity)}
-            {formatAttributeRow("Willpower", mawffStats.Willpower)}
-            {formatAttributeRow("Fluorescence", mawffStats.Fluorescence)}
-            {formatAttributeRow("Fluffiness", mawffStats.Fluffiness)}
-
-
-        </div>
-    );
+        );
+    }
+    else {
+        return "Loading..."
+    }
 }

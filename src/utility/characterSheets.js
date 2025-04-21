@@ -4,8 +4,6 @@ import { useState, useEffect, useMemo } from 'react';
 
 export const makeStartingCharacterSheet = (name, pronouns, image) => { 
 
-    //console.log("Name: " + name);
-
     return {
         Name: name,
         Pronouns: pronouns,

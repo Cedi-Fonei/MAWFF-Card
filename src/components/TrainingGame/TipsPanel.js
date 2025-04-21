@@ -13,7 +13,9 @@ function TipsPanel() {
         // v New mechanics below!
         /*4*/ "Most training costs Stamina! The more you tire yourself out, the higher the chances your training fails!",
         /*5*/ "Resting will restore some Stamina!",
-        /*6*/ "Other training mechanics will be added in future updates!"
+        /*6*/ "You have a Quota to get a certain amount of Pollen every 20 turns!",
+        /*7*/ "If you make your Pollen quota, you get a bunch of bonus stats! But if you fail the quota, your training ends!",
+        /*8*/ "Other training mechanics will be added in future updates!"
     ];
 
     const newIndex = 4;

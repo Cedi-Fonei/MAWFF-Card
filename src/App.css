@@ -161,6 +161,10 @@ h1, h2, h3, h4, h5 {
     height: 100px;
 }
 
+.quota-panel {
+    padding: 0 5rem;
+}
+
 .tiny-title {
     font-size: 8pt;
 }
