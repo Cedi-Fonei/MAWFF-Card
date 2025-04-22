@@ -60,7 +60,7 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
                 <span className="kh-gummi">{trainingFacility.name}</span>
 
                 <span>Lv. {trainingFacility.level}</span>
-                {trainingFacility.level === 5 ? <span>MAX</span> : <span>{trainingFacility.exp}/{trainingFacility.expToLevel}</span>}
+                {trainingFacility.level === 5 ? <span>MAX</span> : <progress value={trainingFacility.exp} max={trainingFacility.expToLevel} />}
 
                 <span>Success: {(100 - trainingFacility.getFailureChance(characterStamina))}%</span>
                 
@@ -91,7 +91,7 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
 
     const renderJob = (job, index) => {
         if (!job) {
-            return <button className="wide-button" disabled>Waiting for a new job...</button>;
+            return <button className="wide-button" disabled>Vacant job posting...</button>;
         }
 
         return (<button className="wide-button" onClick={() => applyJob(job, index)}>

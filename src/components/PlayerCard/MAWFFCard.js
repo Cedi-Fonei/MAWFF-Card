@@ -15,9 +15,10 @@ const formatAttributeRow = (attributeName, attributeValue) => {
     return (<div className="card-attribute-row">
         <div className={"card-att-row-label" + labelSize}>{attributeName}</div>
         <div className="card-att-row-rank">{findAttributeRank(attributeValue).rank}</div>
-        <div className="card-att-row-bar">
-            {attributeValue}
-            TODO add an actual bar
+        <div className="card-att-row-bar row">
+            <span className="col-sm-4">{attributeValue}</span>
+            
+            <progress className="col-sm-8" value={attributeValue} max={1000} />
         </div>
     </div>);
 };
