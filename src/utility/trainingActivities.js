@@ -34,7 +34,12 @@ function getFailureChance(stamina) {
 
     let calculatedRisk = (50 - staminaMidpoint) * 2;
 
-    return calculatedRisk > 0 ? calculatedRisk : 0;
+    if (calculatedRisk > 100)
+        calculatedRisk = 100;
+    if (calculatedRisk < 0)
+        calculatedRisk = 0;
+
+    return calculatedRisk;
 };
 
 export const defaultFacilitiesExercise = {

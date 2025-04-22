@@ -72,6 +72,17 @@ h1, h2, h3, h4, h5 {
     align-content: center;
 }
 
+.create-character-button {
+    width: 170px;
+    height: 65px;
+    font-family: KHGummi;
+    font-size: large;
+
+    background-color: dodgerblue;
+    color: gold;
+    border-color: dodgerblue;
+}
+
 .tips-panel {
     width: 230px;
     height: 300px;

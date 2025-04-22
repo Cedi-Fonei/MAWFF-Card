@@ -59,7 +59,7 @@ function CreateCharacterContainer({ setBasicInformation }) {
             War_Smith, Weapon_Scavenger
         ];
 
-        return (<>
+        return (<div className="my-4">
             {defaultImages.map((thisImage, index) => {
                 return (
                     <img
@@ -70,41 +70,58 @@ function CreateCharacterContainer({ setBasicInformation }) {
                     />
                 );
             })}
-        </>); 
+        </div>); 
     }, [image])
 
 
-    return (<>
+    return (<div className="container">
 
         <h2>Who are you?</h2>
 
         <p>What should we call you?</p>
-        <label>Name</label>
-        <input
-            id="creation-name"
-            name="creation-name"
-            placeholder="Enter..."
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-        />
 
-        <label>Pronouns</label>
-        <input
-            id="creation-pronouns"
-            name="creation-pronouns"
-            placeholder="Enter..."
-            value={pronouns}
-            onChange={(e) => setPronouns(e.target.value)}
-        />
+        <div className="row my-4">
+            <div className="col-xl-3"/>
+            <div className="col-xl-3 vstack">
+                <label label-for="creation-name">Name</label>
+                <input
+                    id="creation-name"
+                    name="creation-name"
+                    placeholder="Enter..."
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+            </div>
+            <div className="col-xl-3 vstack">
+                <label label-for="creation-pronouns">Pronouns</label>
+                <input
+                    id="creation-pronouns"
+                    name="creation-pronouns"
+                    placeholder="Enter..."
+                    value={pronouns}
+                    onChange={(e) => setPronouns(e.target.value)}
+                />
+            </div>
+            <div className="col-xl-3" />
+        </div>
+
+        
+
+       
 
         <p>What do you look like? Click on an image to select it!</p>
 
         {renderImageSelector ? renderImageSelector() : null}
 
+        <p>Are you ready to START~?</p>
 
-        <button onClick={() => submitCreation()}>Create Character</button>
+        <div className="my-4">
+            <button className="create-character-button" onClick={() => submitCreation()}>Create Character</button>
+        </div>
 
-    </>);
+        
+
+    </div>);
 }
 
 export default CreateCharacterContainer;
