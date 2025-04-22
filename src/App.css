@@ -99,10 +99,6 @@ h1, h2, h3, h4, h5 {
     border: 6px #2196F3 groove;
     border-radius: 3px;
     display: inline-block;
-
-   /* & > * {
-        display: inline-block;
-    }*/
 }
 .mawff-card > * {
     display: inline-block;
@@ -118,7 +114,7 @@ h1, h2, h3, h4, h5 {
     height: 200px;
 }
 
-/*avatar is 200 px tall*/
+/*avatar is 200px by 200px*/
 
 /*.annoying-test-borders {
     border-left: 1px solid red;

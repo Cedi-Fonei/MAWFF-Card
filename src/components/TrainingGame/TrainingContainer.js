@@ -256,7 +256,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
     return (<>
 
-        <h2>Training Container Placeholder</h2>
+        <h2>How cool are you?</h2>
 
         {(characterSheet && turnsLeft > 0) ? <div className="row">
 
@@ -283,6 +283,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     jobs={activeJobsList}
                     endTurn={endTurn}
                     characterSheet={characterSheet}
+                    characterStamina={stamina}
                 />
             </div>
 

@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 
 import { defaultFacilitiesExercise, defaultFacilitiesStudies, defaultFacilitiesMarathon, defaultFacilitiesPhotomeditation, defaultFacilitiesPreening } from '../../utility/trainingActivities';
 
-function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet }) { 
+function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet, characterStamina }) { 
 
     // PROBLEM; trainingFacilities are updating, but their displays are NOT updating.
     // I know there's something to fix this within react.js's tools but I've forgotten what it is. a ref? something else?
@@ -61,6 +61,8 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
 
                 <span>Lv. {trainingFacility.level}</span>
                 {trainingFacility.level === 5 ? <span>MAX</span> : <span>{trainingFacility.exp}/{trainingFacility.expToLevel}</span>}
+
+                <span>Success: {(100 - trainingFacility.getFailureChance(characterStamina))}%</span>
                 
             </div>
         </button>)
@@ -94,9 +96,8 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
 
         return (<button className="wide-button" onClick={() => applyJob(job, index)}>
             <div className="row">
-                <span className="col-md-3">??? turns left - </span>
-                <span className="col-md-8">{job.name}</span>
-                <span className="col-md-1">{job.checkJobSuccessRate(characterSheet)}%</span>
+                <span className="col-md-10">{job.name}</span>
+                <span className="col-md-2">{job.checkJobSuccessRate(characterSheet)}%</span>
             </div>
             
         </button>);

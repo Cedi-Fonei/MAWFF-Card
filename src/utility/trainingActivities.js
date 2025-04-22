@@ -32,7 +32,9 @@ function getFailureChance(stamina) {
 
     let staminaMidpoint = (stamina + afterSpendStamina) / 2;
 
-    return (50 - staminaMidpoint) * 2; // TODO what formula do I want to use? //(staminaMidpoint * 2);
+    let calculatedRisk = (50 - staminaMidpoint) * 2;
+
+    return calculatedRisk > 0 ? calculatedRisk : 0;
 };
 
 export const defaultFacilitiesExercise = {

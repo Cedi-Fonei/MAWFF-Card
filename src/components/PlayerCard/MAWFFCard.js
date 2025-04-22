@@ -25,9 +25,9 @@ const formatAttributeRow = (attributeName, attributeValue) => {
 const renderOverallTitle = (mawffStats) => {
     let overallScore = mawffStats.Might + mawffStats.Acuity + mawffStats.Willpower + mawffStats.Fluorescence + mawffStats.Fluffiness;
     // TODO does not account for skills, any other modifiers
-    return (<div className="kh-gummi">
+    return (<div className="kh-gummi position-relative">
         <div className="tiny-title">Trainee Rank</div>
-        {findOverallRank(overallScore).rank}
+        <div>{findOverallRank(overallScore).rank}</div>
     </div>)
 };
 
@@ -50,8 +50,11 @@ export default function MAWFFCard({ mawffStats }) {
 
                 <div className="card-nouns">
                     {renderOverallTitle(mawffStats)}
-                    {mawffStats.Name}
-                    {mawffStats.Pronouns}
+                    <div className="position-relative">
+                        <div>{mawffStats.Name}</div>
+                        <div>{mawffStats.Pronouns}</div>
+                    </div>
+                    
                 </div>
 
                 <img className="card-image" src={mawffStats.Image} alt="Your avatar!" />
