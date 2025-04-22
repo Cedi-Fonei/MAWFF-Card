@@ -179,7 +179,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         let clonedActivejobs = [...activeJobsList];
 
         while (clonedJobIndex < clonedActivejobs.length) { // Move all jobs one space up the list, deleting the job that was successful. The last slot will be empty.
-            clonedActivejobs[clonedJobIndex] = (clonedJobIndex + 1 === clonedActivejobs.length) ? clonedActivejobs[clonedJobIndex + 1] : null
+            clonedActivejobs[clonedJobIndex] = (clonedJobIndex + 1 <= clonedActivejobs.length) ? clonedActivejobs[clonedJobIndex + 1] : null
             clonedJobIndex++;
         }
 
