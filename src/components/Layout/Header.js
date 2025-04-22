@@ -8,7 +8,7 @@ export default function Header() {
                 <h2 className="col-xl-9">MAWFF Card Maker: V. Employed Skeleton</h2>
 
                 {/*NOTE always update this before deploying to gh-pages!*/}
-                <span className="col-xl-3">Last Updated: ??? ?? 2025</span>
+                <span className="col-xl-3">Last Updated: April 22nd 2025</span>
             </div>
 
             

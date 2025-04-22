@@ -1,16 +1,28 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 
-import Ceanothus_Brawler from '../../images/Ceanothus_Brawler.png';
-import Construction_Mith from '../../images/Construction_Mith.png';
-import Crazed_Powermith from '../../images/Crazed_Powermith.png';
-import Geartoggle_Smith from '../../images/Geartoggle_Smith.png';
-import Hydraulic_Armored_Protector from '../../images/Hydraulic_Armored_Protector.png';
-import Luna_Mith from '../../images/Luna_Mith.png';
-import Luna_Mith_Squire from '../../images/Luna_Mith_Squire.png';
-import Marshland_Poodle_Mith from '../../images/Marshland_Poodle_Mith.png';
-import Mith_Loremaster from '../../images/Mith_Loremaster.png';
-import Primrose_Mith from '../../images/Primrose_Mith.png';
-import Silkmith from '../../images/Silkmith.png';
+import Brown_Spotted_Mith from '../../images/Sample Moths/Brown_Spotted_Mith.png';
+import Ceanothus_Brawler from '../../images/Sample Moths/Ceanothus_Brawler.png';
+import Cinder_Mith from '../../images/Sample Moths/Cinder_Mith.png';
+import Clouded_Mith from '../../images/Sample Moths/Clouded_Mith.png';
+import Construction_Mith from '../../images/Sample Moths/Construction_Mith.png';
+import Crazed_Powermith from '../../images/Sample Moths/Crazed_Powermith.png';
+import Curious_Mith from '../../images/Sample Moths/Curious_Mith.png';
+import Geartoggle_Smith from '../../images/Sample Moths/Geartoggle_Smith.png';
+import Goldenplains_Poodle_Mith from '../../images/Sample Moths/Goldenplains_Poodle_Mith.png';
+import Hydraulic_Armored_Protector from '../../images/Sample Moths/Hydraulic_Armored_Protector.png';
+import Luna_Mith from '../../images/Sample Moths/Luna_Mith.png';
+import Luna_Mith_Squire from '../../images/Sample Moths/Luna_Mith_Squire.png';
+import Marshland_Poodle_Mith from '../../images/Sample Moths/Marshland_Poodle_Mith.png';
+import Mith_Bruiser from '../../images/Sample Moths/Mith_Bruiser.png';
+import Mith_Loremaster from '../../images/Sample Moths/Mith_Loremaster.png';
+import Mith_Spellstealer from '../../images/Sample Moths/Mith_Spellstealer.png';
+import Primrose_Mith from '../../images/Sample Moths/Primrose_Mith.png';
+import Regal_Silkmith from '../../images/Sample Moths/Regal_Silkmith.png';
+import Sentinel_Mith from '../../images/Sample Moths/Sentinel_Mith.png';
+import Silkmith from '../../images/Sample Moths/Silkmith.png';
+import Voltaic_Ambassador from '../../images/Sample Moths/Voltaic_Ambassador.png';
+import War_Smith from '../../images/Sample Moths/War_Smith.png';
+import Weapon_Scavenger from '../../images/Sample Moths/Weapon_Scavenger.png';
 
 import '../../App.css'
 
@@ -41,7 +53,11 @@ function CreateCharacterContainer({ setBasicInformation }) {
     }
 
     const renderImageSelector = useCallback(() => {
-        const defaultImages = [Ceanothus_Brawler, Construction_Mith, Crazed_Powermith, Geartoggle_Smith, Hydraulic_Armored_Protector, Luna_Mith, Luna_Mith_Squire, Marshland_Poodle_Mith, Mith_Loremaster, Primrose_Mith, Silkmith];
+        const defaultImages = [
+            Brown_Spotted_Mith, Ceanothus_Brawler, Cinder_Mith, Clouded_Mith, Construction_Mith, Crazed_Powermith, Curious_Mith, Geartoggle_Smith, Goldenplains_Poodle_Mith, Hydraulic_Armored_Protector,
+            Mith_Bruiser, Mith_Spellstealer, Luna_Mith, Luna_Mith_Squire, Marshland_Poodle_Mith, Mith_Loremaster, Primrose_Mith, Silkmith, Regal_Silkmith, Sentinel_Mith, Voltaic_Ambassador,
+            War_Smith, Weapon_Scavenger
+        ];
 
         return (<>
             {defaultImages.map((thisImage, index) => {

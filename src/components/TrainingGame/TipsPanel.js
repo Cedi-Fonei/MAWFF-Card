@@ -14,7 +14,7 @@ function TipsPanel() {
         /*4*/ "Resting will restore some Stamina!",
         /*5*/ "You have a Quota to get a certain amount of Pollen every 20 turns!",
         /*6*/ "If you make your Pollen quota, you get a bunch of bonus stats! But if you fail the quota, your training ends!",
-        /*7*/ "You can work jobs for lots of Pollen and some stats to boot, but they're hard! You'll need a good stat and rank to handle them...",
+        /*7*/ "You can work jobs for lots of Pollen and some stats to boot, but they're hard! You'll need a good stat and trainee rank to handle them...",
         /*8*/ "More training mechanics will be added in future updates!"
     ];
 
