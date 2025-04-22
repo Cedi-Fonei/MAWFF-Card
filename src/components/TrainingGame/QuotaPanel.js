@@ -19,12 +19,19 @@ function QuotaPanel({ pollen, currentTurn, quotas, stamina, maxStamina }) {
         }
         let quotaNumber = quotas.findIndex(q => q === nextQuota) + 1;
 
-        return (<div className="quota-panel">
-            <span className="row">Pollen: {pollen}/{nextQuota.quotaScore}</span>
-            <span className="row">Turns until Quota #{quotaNumber}: {nextQuota.turnDeadline - currentTurn}</span>
-            <span className="row">{endOfCampaign - currentTurn} turns left!</span>
-            <span>Stamina: {stamina}/{maxStamina}</span>
-        </div>);
+        if (quotaNumber) {
+            return (<div className="quota-panel">
+                <span className="row">Pollen: {pollen}/{nextQuota.quotaScore}</span>
+                <span className="row">Turns until Quota #{quotaNumber}: {nextQuota.turnDeadline - currentTurn}</span>
+                <span className="row">{endOfCampaign - currentTurn} turns left!</span>
+                <span>Stamina: {stamina}/{maxStamina}</span>
+            </div>);
+        }
+        else {
+            return "uhhhhh please wait a tick"
+        }
+
+        
     };
 
 

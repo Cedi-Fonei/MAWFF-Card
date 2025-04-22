@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 
 import { TrainingEffectEnums } from '../../utility/enums';
 import { makeStartingCharacterSheet } from '../../utility/characterSheets';
-import { makeQuotas } from '../../utility/scenarioMechanics';
+import { NewJobTurns, makeQuotas, makeJobs } from '../../utility/scenarioMechanics';
 
 import TrainingActivityPanel from './TrainingActivityPanel'
 import MAWFFCard from "../PlayerCard/MAWFFCard";
@@ -15,26 +15,50 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
     const [stamina, setStamina] = useState(null);
     const [pollen, setPollen] = useState(null);
-    //const [turnsLeft, setTurnsLeft] = useState(null);
 
     const [currentTurn, setCurrentTurn] = useState(null);
     const [quotas, setQuotas] = useState(null);
+    const [currentQuota, setCurrentQuota] = useState(null);
+
+    const [allJobsList, setAllJobsList] = useState(null);
+    const [activeJobsList, setActiveJobsList] = useState(null);
+    const [offeredJobsList, setOfferedJobsList] = useState(null);
     
     const maxStamina = 100;
     const baseStamina = 100;
     const basePollen = 0;
-    //const baseTurnsLeft = 20;
 
     const reset = useCallback(() => {
         setCharacterSheet(makeStartingCharacterSheet(name, pronouns, image));
 
         setStamina(baseStamina);
         setPollen(basePollen);
-        //setTurnsLeft(baseTurnsLeft);
 
         setCurrentTurn(1);
         setQuotas(makeQuotas());
+
+        setAllJobsList(makeJobs());
+        setActiveJobsList([null, null, null]);
+        setOfferedJobsList([]);
     }, [name, pronouns, image]);
+
+    useEffect(() => {
+        if (quotas && currentTurn) {
+            if (currentQuota) {
+                let nextQuota = quotas.filter(q => q.turnDeadline >= currentTurn)?.at(0);
+
+                if (nextQuota && nextQuota !== currentQuota)
+                    setCurrentQuota(nextQuota);
+            }
+            else {
+                setCurrentQuota(quotas[0]);
+            }
+        }
+        else {
+            if (currentQuota)
+                setCurrentQuota(null);
+        }
+    }, [currentTurn, quotas, currentQuota]);
 
     const updateStamina = (staminaChange) => {
         if (staminaChange + stamina > maxStamina) {
@@ -52,9 +76,12 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         setCharacterSheet(null);
         setStamina(null);
         setPollen(null);
-        //setTurnsLeft(null);
         setCurrentTurn(null);
         setQuotas(null);
+
+        setAllJobsList(null);
+        setActiveJobsList(null);
+        setOfferedJobsList(null);
     };
 
     const turnsLeft = useMemo(() => {
@@ -131,21 +158,16 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         updateStamina(restVariableRoll);
     }
 
-
-    const checkQuota = useCallback(() => {
-        if (quotas && currentTurn && finalizeTraining) {
-            let quotaDueNow = quotas.find(q => q.turnDeadline);
-
-            if (quotaDueNow) {
-                if (pollen >= quotaDueNow.quotaScore) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+    const checkQuota = useCallback((quotaDueNow) => { 
+        if (pollen && finalizeTraining) {
+            if (pollen >= quotaDueNow.quotaScore) {
+                return true;
+            }
+            else {
+                return false;
             }
         }
-    }, [pollen, quotas, currentTurn, finalizeTraining]);
+    }, [pollen, finalizeTraining])
 
 
     const processTurnAction = (doTurnAction) => { // TODO implement this process for cleaner turn actions/presentation
@@ -159,19 +181,18 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     }
 
     const endTurn = () => {
-        let nextTurnQuota = quotas.find(q => q.turnDeadline === currentTurn + 1);
         let allowNextTurn = true;
-        if (nextTurnQuota) {
-            allowNextTurn = checkQuota();
+        if (currentQuota.turnDeadline === currentTurn + 1) {
+            allowNextTurn = checkQuota(currentQuota);
             if (allowNextTurn) {
                 let clonedSheet = { ...characterSheet };
 
-                clonedSheet.Might += nextTurnQuota.quotaReward.Might;
-                clonedSheet.Acuity += nextTurnQuota.quotaReward.Acuity;
-                clonedSheet.Willpower += nextTurnQuota.quotaReward.Willpower;
-                clonedSheet.Fluorescence += nextTurnQuota.quotaReward.Fluorescence;
-                clonedSheet.Fluffiness += nextTurnQuota.quotaReward.Fluffiness;
-                clonedSheet.SkillPoints += nextTurnQuota.quotaReward.SkillPoints;
+                clonedSheet.Might += currentQuota.quotaReward.Might;
+                clonedSheet.Acuity += currentQuota.quotaReward.Acuity;
+                clonedSheet.Willpower += currentQuota.quotaReward.Willpower;
+                clonedSheet.Fluorescence += currentQuota.quotaReward.Fluorescence;
+                clonedSheet.Fluffiness += currentQuota.quotaReward.Fluffiness;
+                clonedSheet.SkillPoints += currentQuota.quotaReward.SkillPoints;
 
                 setCharacterSheet(clonedSheet);
             }
@@ -180,8 +201,34 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
             }
         }
 
-        if (allowNextTurn)
+        if (allowNextTurn) {
+            let turnForNewJob = NewJobTurns.some(jt => jt === currentTurn + 1);
+            if (turnForNewJob) {
+
+                let validNewJobs = allJobsList.filter(j => j.quotaNumber === currentQuota.quotaNumber && !offeredJobsList.some(oj => oj.id === j.id));
+
+                if (validNewJobs.length) {
+                    let randomNumber = Math.floor(Math.random() * validNewJobs.length);
+                    let chosenJob = validNewJobs[randomNumber];
+
+                    let clonedActiveJobs = [...activeJobsList];
+                    clonedActiveJobs[2] = clonedActiveJobs[1];
+                    clonedActiveJobs[1] = clonedActiveJobs[0];
+                    clonedActiveJobs[0] = chosenJob;
+
+                    setActiveJobsList(clonedActiveJobs);
+
+                    let clonedOffers = [...offeredJobsList];
+                    clonedOffers.push(chosenJob);
+                    setOfferedJobsList(clonedOffers);
+                }
+
+                
+            }
+
             setCurrentTurn(currentTurn + 1);
+        }
+            
         else
             finalizeTraining(characterSheet);
         
@@ -215,6 +262,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     attemptTraining={attemptTraining}
                     attemptRest={attemptRest}
                     isOpen={characterSheet !== null}
+                    jobs={activeJobsList}
                     endTurn={endTurn}
                 />
             </div>

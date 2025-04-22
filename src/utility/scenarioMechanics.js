@@ -4,12 +4,17 @@ const calculateQuotaRewards = (rewardModifiers) => {
     return this.quotaReward;
 } 
 
+export const NewJobTurns = [2, 7, 12, 17, 22, 27, 32, 37, 42, 47, 52, 57];
+
 const quotaDifficulties = [6, 12, 24];
 
-const checkJobSuccessRate = (characterSheet) => {
+function checkJobSuccessRate(characterSheet) {
+    console.log(JSON.stringify(this));
     let baseDifficulty = quotaDifficulties[this.quotaNumber - 1];
 
     //let rankNumber = 
+    // TODO calculate a number for percentage chance
+    return "TODO";
 }
 
 const attemptJob = () => {
@@ -26,7 +31,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Might, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 20 },
             { effect: TrainingEffectEnums.Pollen, value: 400 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Tutor Baby Grubs",
@@ -37,7 +43,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Acuity, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 20 },
             { effect: TrainingEffectEnums.Pollen, value: 400 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Public Speaking",
@@ -48,7 +55,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Willpower, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 20 },
             { effect: TrainingEffectEnums.Pollen, value: 400 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Charge Your Phone",
@@ -59,7 +67,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Fluorescence, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 20 },
             { effect: TrainingEffectEnums.Pollen, value: 400 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Pollenate A Field",
@@ -70,7 +79,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Fluffiness, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 20 },
             { effect: TrainingEffectEnums.Pollen, value: 400 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Substitute for a Bulldozer",
@@ -81,7 +91,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Might, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 30 },
             { effect: TrainingEffectEnums.Pollen, value: 1000 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Fact-check a Fan Wiki",
@@ -92,7 +103,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Acuity, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 30 },
             { effect: TrainingEffectEnums.Pollen, value: 1000 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Deliver a Parcel Across the Country",
@@ -103,7 +115,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Willpower, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 30 },
             { effect: TrainingEffectEnums.Pollen, value: 1000 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Explode an Evil Tree",
@@ -114,7 +127,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Fluorescence, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 30 },
             { effect: TrainingEffectEnums.Pollen, value: 1000 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Win a Beauty Contest",
@@ -125,7 +139,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Fluffiness, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 30 },
             { effect: TrainingEffectEnums.Pollen, value: 1000 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Punch a Falling Meteor",
@@ -136,7 +151,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Might, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 50 },
             { effect: TrainingEffectEnums.Pollen, value: 3000 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Solve World Hunger",
@@ -147,7 +163,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Acuity, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 50 },
             { effect: TrainingEffectEnums.Pollen, value: 3000 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Skydive Into a Black Hole (and live)",
@@ -158,7 +175,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Willpower, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 50 },
             { effect: TrainingEffectEnums.Pollen, value: 3000 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Replace the Sun",
@@ -169,7 +187,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Fluorescence, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 50 },
             { effect: TrainingEffectEnums.Pollen, value: 3000 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
     {
         name: "Date the Broodmonarch",
@@ -180,7 +199,8 @@ const allJobs = [
             { effect: TrainingEffectEnums.Fluffiness, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 50 },
             { effect: TrainingEffectEnums.Pollen, value: 3000 }
-        ]
+        ],
+        checkJobSuccessRate: checkJobSuccessRate
     },
 ]
 
@@ -216,6 +236,10 @@ const baseQuotas = [
         calculateQuotaRewards: calculateQuotaRewards
     },
 ];
+
+export const makeJobs = () => {
+    return allJobs;
+}
 
 
 

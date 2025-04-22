@@ -31,6 +31,17 @@ const renderOverallTitle = (mawffStats) => {
     </div>)
 };
 
+const formatSkillBlock = (skillPoints, skills) => {
+    return (<div>
+        <span>SP: {skillPoints}</span>
+        <div className="row">
+            {skills?.forEach((skill) => <div className="col-sm-6">
+                {skill.name}
+            </div>)}
+        </div>
+    </div>)
+}
+
 export default function MAWFFCard({ mawffStats }) {
 
     if (mawffStats) {
@@ -51,6 +62,7 @@ export default function MAWFFCard({ mawffStats }) {
                 {formatAttributeRow("Fluorescence", mawffStats.Fluorescence)}
                 {formatAttributeRow("Fluffiness", mawffStats.Fluffiness)}
 
+                {formatSkillBlock(mawffStats.SkillPoints, mawffStats.skills)}
 
             </div>
         );

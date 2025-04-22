@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 
 import { defaultFacilitiesExercise, defaultFacilitiesStudies, defaultFacilitiesMarathon, defaultFacilitiesPhotomeditation, defaultFacilitiesPreening } from '../../utility/trainingActivities';
 
-function TrainingActivityPanel({ attemptTraining, attemptRest, isOpen, endTurn }) { 
+function TrainingActivityPanel({ attemptTraining, attemptRest, isOpen, jobs, endTurn, characterSheet }) { 
 
     // PROBLEM; trainingFacilities are updating, but their displays are NOT updating.
     // I know there's something to fix this within react.js's tools but I've forgotten what it is. a ref? something else?
@@ -73,6 +73,25 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, isOpen, endTurn }
         </button>)
     }
 
+    const applyJob = (job, index) => {
+        console.log("TODO apply job");
+    }
+
+    const renderJob = (job, index) => {
+        if (!job) {
+            return <button className="wide-button" disabled>Waiting for a new job...</button>;
+        }
+
+        return (<button className="wide-button" onClick={() => applyJob(job, index)}>
+            <div className="row">
+                <span className="col-md-3">??? turns left - </span>
+                <span className="col-md-8">{job.name}</span>
+                <span className="col-md-1">{job.checkJobSuccessRate(characterSheet)}%</span>
+            </div>
+            
+        </button>);
+    }
+
 
     return (<>
 
@@ -86,6 +105,18 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, isOpen, endTurn }
                 {renderTrainingFacility(trainingFacilities[3], 3)}
                 {renderTrainingFacility(trainingFacilities[4], 4)}
                 {renderRestFacility()}
+            </div>
+
+            <div className="row">
+                {renderJob(jobs[0], 0)}
+            </div>
+
+            <div className="row">
+                {renderJob(jobs[1], 1)}
+            </div>
+
+            <div className="row">
+                {renderJob(jobs[2], 2)}
             </div>
             
         </>}
