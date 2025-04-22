@@ -103,6 +103,43 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         }
     }, [turnsLeft, characterSheet, finalizeTraining]);
 
+    const applyListOfEffects = (effectList) => {
+        let clonedSheet = { ...characterSheet };
+
+        effectList.forEach((e) => {
+            switch (e.effect) {
+                case TrainingEffectEnums.StaminaChange:
+                    updateStamina(e.value);
+                    break;
+                case TrainingEffectEnums.Might:
+                    clonedSheet.Might += e.value;
+                    break;
+                case TrainingEffectEnums.Acuity:
+                    clonedSheet.Acuity += e.value;
+                    break;
+                case TrainingEffectEnums.Willpower:
+                    clonedSheet.Willpower += e.value;
+                    break;
+                case TrainingEffectEnums.Fluorescence:
+                    clonedSheet.Fluorescence += e.value;
+                    break;
+                case TrainingEffectEnums.Fluffiness:
+                    clonedSheet.Fluffiness += e.value;
+                    break;
+                case TrainingEffectEnums.SkillPoints:
+                    clonedSheet.SkillPoints += e.value;
+                    break;
+                case TrainingEffectEnums.Pollen:
+                    setPollen(pollen + e.value);
+                    break;
+                default:
+                    throw Error("Invalid TrainingEffectEnum");
+            }
+        });
+
+        setCharacterSheet(clonedSheet);
+    }
+
     const attemptTraining = (trainingFacility) => {
 
         let failRate = trainingFacility.getFailureChance(stamina);
@@ -112,42 +149,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         let isSuccess = failRate < succcessRoll; // TODO Show fail rates when selecting training!
 
         if (isSuccess) {
-            let clonedSheet = { ...characterSheet };
-
-            trainingFacility.trainingChanges.find(tc => tc.level === trainingFacility.level).effects.forEach((e) => {
-                
-                switch (e.effect) {
-                    case TrainingEffectEnums.StaminaChange:
-                        updateStamina(e.value);
-                        break;
-                    case TrainingEffectEnums.Might:
-                        clonedSheet.Might += e.value;
-                        break;
-                    case TrainingEffectEnums.Acuity:
-                        clonedSheet.Acuity += e.value;
-                        break;
-                    case TrainingEffectEnums.Willpower:
-                        clonedSheet.Willpower += e.value;
-                        break;
-                    case TrainingEffectEnums.Fluorescence:
-                        clonedSheet.Fluorescence += e.value;
-                        break;
-                    case TrainingEffectEnums.Fluffiness:
-                        clonedSheet.Fluffiness += e.value;
-                        break;
-                    case TrainingEffectEnums.SkillPoints:
-                        clonedSheet.SkillPoints += e.value;
-                        break;
-                    case TrainingEffectEnums.Pollen:
-                        setPollen(pollen + e.value);
-                        break;
-                    default:
-                        throw Error("Invalid TrainingEffectEnum");
-                }
-            });
-
-            setCharacterSheet(clonedSheet);
-
+            applyListOfEffects(trainingFacility.trainingChanges.find(tc => tc.level === trainingFacility.level).effects);
         }
 
         return isSuccess;
@@ -158,7 +160,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         updateStamina(restVariableRoll);
     }
 
-    const checkQuota = useCallback((quotaDueNow) => { 
+    const checkQuota = useCallback((quotaDueNow) => {
         if (pollen && finalizeTraining) {
             if (pollen >= quotaDueNow.quotaScore) {
                 return true;
@@ -167,7 +169,22 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                 return false;
             }
         }
-    }, [pollen, finalizeTraining])
+    }, [pollen, finalizeTraining]);
+
+    const giveJobReward = (job, jobIndex) => {
+
+        applyListOfEffects(job.successRewards);
+
+        let clonedJobIndex = jobIndex;
+        let clonedActivejobs = [...activeJobsList];
+
+        while (clonedJobIndex < clonedActivejobs.length) { // Move all jobs one space up the list, deleting the job that was successful. The last slot will be empty.
+            clonedActivejobs[clonedJobIndex] = (clonedJobIndex + 1 === clonedActivejobs.length) ? clonedActivejobs[clonedJobIndex + 1] : null
+            clonedJobIndex++;
+        }
+
+        setActiveJobsList(clonedActivejobs);
+    };
 
 
     const processTurnAction = (doTurnAction) => { // TODO implement this process for cleaner turn actions/presentation
@@ -261,6 +278,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                 <TrainingActivityPanel
                     attemptTraining={attemptTraining}
                     attemptRest={attemptRest}
+                    giveJobReward={giveJobReward}
                     isOpen={characterSheet !== null}
                     jobs={activeJobsList}
                     endTurn={endTurn}

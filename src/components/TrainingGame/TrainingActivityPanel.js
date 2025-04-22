@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 
 import { defaultFacilitiesExercise, defaultFacilitiesStudies, defaultFacilitiesMarathon, defaultFacilitiesPhotomeditation, defaultFacilitiesPreening } from '../../utility/trainingActivities';
 
-function TrainingActivityPanel({ attemptTraining, attemptRest, isOpen, jobs, endTurn, characterSheet }) { 
+function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet }) { 
 
     // PROBLEM; trainingFacilities are updating, but their displays are NOT updating.
     // I know there's something to fix this within react.js's tools but I've forgotten what it is. a ref? something else?
@@ -74,13 +74,11 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, isOpen, jobs, end
     }
 
     const applyJob = (job, index) => {
-        console.log("TODO apply job");
         let successRate = job.checkJobSuccessRate(characterSheet);
 
         let randomCheck = Math.floor(Math.random() * 100) + 1;
-        console.log("Success is " + successRate + ", random check is " + randomCheck);
         if (successRate >= randomCheck) {
-            console.log("Waoh you DID THE JOB");
+            giveJobReward(job, index);
         }
         else {
             console.log("Ooch ouchie the job GOT YOU");
