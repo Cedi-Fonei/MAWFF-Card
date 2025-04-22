@@ -1,29 +1,41 @@
 {
   "files": {
-    "main.css": "/MAWFF-Card/static/css/main.d452e19e.css",
-    "main.js": "/MAWFF-Card/static/js/main.6e161d56.js",
+    "main.css": "/MAWFF-Card/static/css/main.4beb2f4a.css",
+    "main.js": "/MAWFF-Card/static/js/main.12ce7fe0.js",
     "static/js/453.1d25f4bd.chunk.js": "/MAWFF-Card/static/js/453.1d25f4bd.chunk.js",
     "static/media/Mith_Loremaster.png": "/MAWFF-Card/static/media/Mith_Loremaster.c0ba134f953b5d20adf3.png",
+    "static/media/Mith_Spellstealer.png": "/MAWFF-Card/static/media/Mith_Spellstealer.b7d87fd7f1d8afb81fb5.png",
+    "static/media/War_Smith.png": "/MAWFF-Card/static/media/War_Smith.c3b26d352d52988f472e.png",
+    "static/media/Regal_Silkmith.png": "/MAWFF-Card/static/media/Regal_Silkmith.05a25befc0da82790c3c.png",
+    "static/media/Curious_Mith.png": "/MAWFF-Card/static/media/Curious_Mith.9df974d5213e43156eaa.png",
     "static/media/Geartoggle_Smith.png": "/MAWFF-Card/static/media/Geartoggle_Smith.80df12c0197f8de756f0.png",
     "static/media/Silkmith.png": "/MAWFF-Card/static/media/Silkmith.ea9180d0545862047821.png",
+    "static/media/Voltaic_Ambassador.png": "/MAWFF-Card/static/media/Voltaic_Ambassador.d82c56ab14064d191671.png",
     "static/media/Crazed_Powermith.png": "/MAWFF-Card/static/media/Crazed_Powermith.9b8ee82dffb41768e551.png",
+    "static/media/Mith_Bruiser.png": "/MAWFF-Card/static/media/Mith_Bruiser.cb59218fefb308ec6c02.png",
     "static/media/Ceanothus_Brawler.png": "/MAWFF-Card/static/media/Ceanothus_Brawler.56b27580756908038037.png",
+    "static/media/Goldenplains_Poodle_Mith.png": "/MAWFF-Card/static/media/Goldenplains_Poodle_Mith.f3649197698ed059527c.png",
     "static/media/Luna_Mith_Squire.png": "/MAWFF-Card/static/media/Luna_Mith_Squire.98bf7494839363160909.png",
     "static/media/Construction_Mith.png": "/MAWFF-Card/static/media/Construction_Mith.5c952c24da6081a05b07.png",
     "static/media/Hydraulic_Armored_Protector.png": "/MAWFF-Card/static/media/Hydraulic_Armored_Protector.9664fcc078a15df53df0.png",
+    "static/media/Weapon_Scavenger.png": "/MAWFF-Card/static/media/Weapon_Scavenger.823ad583879232a09664.png",
+    "static/media/Sentinel_Mith.png": "/MAWFF-Card/static/media/Sentinel_Mith.eea8a40a6eb5f26c6950.png",
     "static/media/Luna_Mith.png": "/MAWFF-Card/static/media/Luna_Mith.7f6e51e54a3f2cf73d73.png",
+    "static/media/Brown_Spotted_Mith.png": "/MAWFF-Card/static/media/Brown_Spotted_Mith.61fa733d41a2056609fa.png",
     "static/media/Marshland_Poodle_Mith.png": "/MAWFF-Card/static/media/Marshland_Poodle_Mith.d289cc5938cfc4203365.png",
     "static/media/Primrose_Mith.png": "/MAWFF-Card/static/media/Primrose_Mith.fee1d8cd969a20e09326.png",
+    "static/media/Clouded_Mith.png": "/MAWFF-Card/static/media/Clouded_Mith.5bac9a46e72b77838458.png",
+    "static/media/Cinder_Mith.png": "/MAWFF-Card/static/media/Cinder_Mith.8db97163d137f4c97a77.png",
     "static/media/KHGummi.otf": "/MAWFF-Card/static/media/KHGummi.6bace90943d83394788e.otf",
     "static/media/KHMenu.otf": "/MAWFF-Card/static/media/KHMenu.eabdda9cd74e18a3ecde.otf",
     "static/media/logo.svg": "/MAWFF-Card/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/MAWFF-Card/index.html",
-    "main.d452e19e.css.map": "/MAWFF-Card/static/css/main.d452e19e.css.map",
-    "main.6e161d56.js.map": "/MAWFF-Card/static/js/main.6e161d56.js.map",
+    "main.4beb2f4a.css.map": "/MAWFF-Card/static/css/main.4beb2f4a.css.map",
+    "main.12ce7fe0.js.map": "/MAWFF-Card/static/js/main.12ce7fe0.js.map",
     "453.1d25f4bd.chunk.js.map": "/MAWFF-Card/static/js/453.1d25f4bd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d452e19e.css",
-    "static/js/main.6e161d56.js"
+    "static/css/main.4beb2f4a.css",
+    "static/js/main.12ce7fe0.js"
   ]
 }
