@@ -75,6 +75,18 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, isOpen, jobs, end
 
     const applyJob = (job, index) => {
         console.log("TODO apply job");
+        let successRate = job.checkJobSuccessRate(characterSheet);
+
+        let randomCheck = Math.floor(Math.random() * 100) + 1;
+        console.log("Success is " + successRate + ", random check is " + randomCheck);
+        if (successRate >= randomCheck) {
+            console.log("Waoh you DID THE JOB");
+        }
+        else {
+            console.log("Ooch ouchie the job GOT YOU");
+        }
+
+        endTurn();
     }
 
     const renderJob = (job, index) => {

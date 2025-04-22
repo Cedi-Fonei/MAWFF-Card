@@ -14,7 +14,7 @@ const formatAttributeRow = (attributeName, attributeValue) => {
 
     return (<div className="card-attribute-row">
         <div className={"card-att-row-label" + labelSize}>{attributeName}</div>
-        <div className="card-att-row-rank">{findAttributeRank(attributeValue)}</div>
+        <div className="card-att-row-rank">{findAttributeRank(attributeValue).rank}</div>
         <div className="card-att-row-bar">
             {attributeValue}
             TODO add an actual bar
@@ -27,7 +27,7 @@ const renderOverallTitle = (mawffStats) => {
     // TODO does not account for skills, any other modifiers
     return (<div className="kh-gummi">
         <div className="tiny-title">Trainee Rank</div>
-        {findOverallRank(overallScore)}
+        {findOverallRank(overallScore).rank}
     </div>)
 };
 

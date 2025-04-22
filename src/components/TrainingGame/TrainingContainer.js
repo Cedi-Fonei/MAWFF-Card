@@ -264,6 +264,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     isOpen={characterSheet !== null}
                     jobs={activeJobsList}
                     endTurn={endTurn}
+                    characterSheet={characterSheet}
                 />
             </div>
 

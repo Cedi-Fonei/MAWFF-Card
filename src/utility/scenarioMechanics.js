@@ -1,4 +1,5 @@
 import { AttributeEnums, TrainingEffectEnums } from './enums';
+import { findAttributeRank, findOverallRank } from './ranks';
 
 const calculateQuotaRewards = (rewardModifiers) => {
     return this.quotaReward;
@@ -9,12 +10,33 @@ export const NewJobTurns = [2, 7, 12, 17, 22, 27, 32, 37, 42, 47, 52, 57];
 const quotaDifficulties = [6, 12, 24];
 
 function checkJobSuccessRate(characterSheet) {
-    console.log(JSON.stringify(this));
     let baseDifficulty = quotaDifficulties[this.quotaNumber - 1];
 
+    console.log(JSON.stringify(characterSheet));
+
+    let relevantAttributeValue;
+    switch (this.mainAttribute) {
+        case AttributeEnums.Might:
+            relevantAttributeValue = characterSheet.Might; break;
+        case AttributeEnums.Acuity:
+            relevantAttributeValue = characterSheet.Acuity; break;
+        case AttributeEnums.Willpower:
+            relevantAttributeValue = characterSheet.Willpower; break;
+        case AttributeEnums.Fluorescence:
+            relevantAttributeValue = characterSheet.Fluorescence; break;
+        case AttributeEnums.Fluffiness:
+            relevantAttributeValue = characterSheet.Fluffiness; break;
+        default:
+            break;
+    }
+    // TODO I need to refactor a clean, reliable source for OverallScore built into characterSheet
+    let overallScore = characterSheet.Might + characterSheet.Acuity + characterSheet.Willpower + characterSheet.Fluorescence + characterSheet.Fluffiness;
+    let jobScore = findAttributeRank(relevantAttributeValue).jobValue + findOverallRank(overallScore).jobValue;
+
+    let percentileChance = Math.floor((jobScore / baseDifficulty) * 100);
     //let rankNumber = 
     // TODO calculate a number for percentage chance
-    return "TODO";
+    return percentileChance;
 }
 
 const attemptJob = () => {
