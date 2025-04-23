@@ -1,7 +1,7 @@
 // IMPORTS FOR FORMATTING
 import { findAttributeRank, findOverallRank } from '../../utility/ranks';
 
-const formatAttributeRow = (attributeName, attributeValue) => {
+const formatAttributeRow = (attributeName, attributeValue, tooltipItem) => {
 
     let labelSize = "";
 

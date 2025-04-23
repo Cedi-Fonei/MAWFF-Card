@@ -169,7 +169,9 @@ h1, h2, h3, h4, h5 {
 }
 
 .quota-panel {
-    padding: 0 5rem;
+    padding: 0 4rem;
+
+    display: inline-block;
 }
 
 .wide-button {
@@ -198,4 +200,26 @@ h1, h2, h3, h4, h5 {
     height: 30px;
     width: 50%;
     border-radius: 6px;
+}
+
+
+.tooltip-popup {
+    border-radius: 10px;
+    border-width: 1px;
+    background-color: lightskyblue;
+    border-color: deepskyblue;
+
+    z-index: 1;
+    box-shadow: rgba(0, 0, 20, 0.4) 3px 3px;
+
+    position: absolute;
+    padding: 7px;
+}
+
+.effect-positive {
+    color: green;
+}
+
+.effect-negative {
+    color: red;
 }

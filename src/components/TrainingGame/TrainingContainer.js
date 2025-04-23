@@ -23,6 +23,9 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     const [allJobsList, setAllJobsList] = useState(null);
     const [activeJobsList, setActiveJobsList] = useState(null);
     const [offeredJobsList, setOfferedJobsList] = useState(null);
+
+    const [hoveringItem, setHoveringItem] = useState(null);
+
     
     const maxStamina = 100;
     const baseStamina = 100;
@@ -267,6 +270,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     quotas={quotas}
                     stamina={stamina}
                     maxStamina={maxStamina}
+                    tooltipItem={hoveringItem}
                 />
             </div>
 
@@ -284,12 +288,15 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     endTurn={endTurn}
                     characterSheet={characterSheet}
                     characterStamina={stamina}
+                    hoveringItem={hoveringItem}
+                    setHoveringItem={setHoveringItem}
                 />
             </div>
 
             <div className="col-lg-3 my-3" >
                 <MAWFFCard
                     mawffStats={characterSheet}
+                    tooltipItem={hoveringItem}
                 />
             </div>
 

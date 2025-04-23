@@ -1,12 +1,15 @@
 import { useState, useEffect, useMemo } from 'react';
 
 import { defaultFacilitiesExercise, defaultFacilitiesStudies, defaultFacilitiesMarathon, defaultFacilitiesPhotomeditation, defaultFacilitiesPreening } from '../../utility/trainingActivities';
+import { calculateUnrandomizedTrainingEffects } from '../../utility/trainingModifiers';
 
-function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet, characterStamina }) { 
+function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet, characterStamina, hoveringItem, setHoveringItem }) { 
 
     // PROBLEM; trainingFacilities are updating, but their displays are NOT updating.
     // I know there's something to fix this within react.js's tools but I've forgotten what it is. a ref? something else?
     const [trainingFacilities, setTrainingFacilities] = useState([]);
+
+    //const [hoveringOption, setHoveringOption] = useState(null);
 
     const baseExpGain = 10;
 
@@ -55,6 +58,8 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
         // Sofar so good, let's make this LEGIBLE and PRACTICAL TO USE next before we add actually training mechanics
         return (<button key={index} onClick={() => applyTraining(trainingFacility, index)}
             className="training-facility-selectable"
+            onMouseOver={() => setHoveringItem(calculateUnrandomizedTrainingEffects(trainingFacility.checkCurrentLevelEffects(), []))}
+            onMouseOut={() => setHoveringItem(null)}
         >
             <div className="vstack gap-2">
                 <span className="kh-gummi">{trainingFacility.name}</span>
@@ -107,6 +112,18 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
     return (<>
 
         {trainingFacilities?.length && <>
+
+            { /* 
+            <span>TEMPORARY TEST HOVER DISPLAY</span>
+
+            <div className="row">
+                {hoveringItem && <span>{JSON.stringify(calculateUnrandomizedTrainingEffects(hoveringItem.checkCurrentLevelEffects(), []))}</span>}
+                <span></span>
+            </div>
+            */ }
+
+
+
             <div className="row d-flex justify-content-center">
                 {renderTrainingFacility(trainingFacilities[0], 0)}
                 {renderTrainingFacility(trainingFacilities[1], 1)}

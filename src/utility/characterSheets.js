@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 
 
 
-export const makeStartingCharacterSheet = (name, pronouns, image) => { 
+export const makeStartingCharacterSheet = (name, pronouns, image) => {
 
     return {
         Name: name,
@@ -18,4 +18,4 @@ export const makeStartingCharacterSheet = (name, pronouns, image) => {
 
         skills: []
     };
-} 
+};
