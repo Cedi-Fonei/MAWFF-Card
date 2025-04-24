@@ -25,7 +25,8 @@ export const SparkDecayPriority = {
     Low: 1,
     Standard: 2,
     High: 3,
-    Maximum: 4
+    Maximum: 4,
+    Guarantee: 5
 }
 
 export const SparkEffectScaling = {

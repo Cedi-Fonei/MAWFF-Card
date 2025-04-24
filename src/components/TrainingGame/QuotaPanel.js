@@ -41,7 +41,13 @@ function QuotaPanel({ pollen, currentTurn, quotas, stamina, maxStamina, tooltipI
             return (<div className="quota-panel">
 
                 <div className="row">
-                    <div className="col-6">Pollen: {pollen}/{nextQuota.quotaScore}</div>
+                    <div className="col-6" style={{ position: 'relative' }}>
+                        <EffectTooltip
+                            value={tooltipItem?.find(e => e.effect === TrainingEffectEnums.Pollen)?.value}
+                            positionOffsets={{ top: "20px", right: "75px" }}
+                        />
+                        Pollen: {pollen}/{nextQuota.quotaScore}
+                    </div>
 
                     <div className="col-6">Turns until Quota #{quotaNumber}: {nextQuota.turnDeadline - currentTurn}</div>
                 </div>

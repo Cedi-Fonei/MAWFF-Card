@@ -1,27 +1,10 @@
-// IMPORTS FOR FORMATTING
+import { useMemo } from 'react';
+import { TrainingEffectEnums } from '../../utility/enums';
 import { findAttributeRank, findOverallRank } from '../../utility/ranks';
+import EffectTooltip from '../TrainingGame/Popups/EffectTooltip';
 
-const formatAttributeRow = (attributeName, attributeValue, tooltipItem) => {
 
-    let labelSize = "";
 
-    if (attributeName.length > 10) {
-        labelSize = " card-label-smaller";
-    }
-    else if (attributeName.length > 8) {
-        labelSize = " card-label-small";
-    }
-
-    return (<div className="card-attribute-row">
-        <div className={"card-att-row-label" + labelSize}>{attributeName}</div>
-        <div className="card-att-row-rank">{findAttributeRank(attributeValue).rank}</div>
-        <div className="card-att-row-bar row">
-            <span className="col-sm-4">{attributeValue}</span>
-            
-            <progress className="col-sm-8" value={attributeValue} max={1000} />
-        </div>
-    </div>);
-};
 
 const renderOverallTitle = (mawffStats) => {
     let overallScore = mawffStats.Might + mawffStats.Acuity + mawffStats.Willpower + mawffStats.Fluorescence + mawffStats.Fluffiness;
@@ -32,18 +15,69 @@ const renderOverallTitle = (mawffStats) => {
     </div>)
 };
 
-const formatSkillBlock = (skillPoints, skills) => {
-    return (<div>
-        <span>SP: {skillPoints}</span>
-        <div className="row">
-            {skills?.forEach((skill) => <div className="col-sm-6">
-                {skill.name}
-            </div>)}
-        </div>
-    </div>)
-}
 
-export default function MAWFFCard({ mawffStats }) {
+
+export default function MAWFFCard({ mawffStats, tooltipItem }) {
+
+    const formatAttributeRow = (attributeName, attributeValue, effectEnum) => {
+
+        let labelSize = "";
+
+        if (attributeName.length > 10) {
+            labelSize = " card-label-smaller";
+        }
+        else if (attributeName.length > 8) {
+            labelSize = " card-label-small";
+        }
+
+        return (<div className="card-attribute-row">
+            <div className={"card-att-row-label" + labelSize}>{attributeName}</div>
+            <div className="card-att-row-rank">{findAttributeRank(attributeValue).rank}</div>
+            <div className="card-att-row-bar row">
+                <span className="col-sm-4" style={{ position: 'relative' }}>
+                    <EffectTooltip
+                        value={tooltipItem?.find(e => e.effect === effectEnum)?.value}
+                        positionOffsets={{ top: "-16px" }}
+                    />
+                    {attributeValue}
+                </span>
+
+                <progress className="col-sm-8" value={attributeValue} max={1000} />
+            </div>
+        </div>);
+    };
+
+    const formatSkillBlock = (skillPoints, skills) => {
+        return (<div>
+            <div style={{ position: 'relative' }}>
+                <span>SP: {skillPoints}</span>
+                <EffectTooltip
+                    value={tooltipItem?.find(e => e.effect === TrainingEffectEnums.SkillPoints)?.value}
+                    positionOffsets={{ top: "-10px", right: "-50px" }}
+                />
+            </div>
+            <div className="row">
+                {skills?.forEach((skill) => <div className="col-sm-6">
+                    {skill.name}
+                </div>)}
+            </div>
+        </div>)
+    }
+
+    //const statGainsTooltips = useMemo(() => {
+
+    //    if (tooltipItem) {
+    //        let retArray = [];
+
+    //        if (tooltipItem.find(e => e.effect === TrainingEffectEnums.StaminaChange))
+    //            retArray.push()
+    //    }
+    //    else {
+    //        return [];
+    //    }
+
+        
+    //}, [tooltipItem])
 
     if (mawffStats) {
         return (
@@ -60,11 +94,11 @@ export default function MAWFFCard({ mawffStats }) {
 
                 <img className="card-image" src={mawffStats.Image} alt="Your avatar!" />
 
-                {formatAttributeRow("Might", mawffStats.Might)}
-                {formatAttributeRow("Acuity", mawffStats.Acuity)}
-                {formatAttributeRow("Willpower", mawffStats.Willpower)}
-                {formatAttributeRow("Fluorescence", mawffStats.Fluorescence)}
-                {formatAttributeRow("Fluffiness", mawffStats.Fluffiness)}
+                {formatAttributeRow("Might", mawffStats.Might, TrainingEffectEnums.Might)}
+                {formatAttributeRow("Acuity", mawffStats.Acuity, TrainingEffectEnums.Acuity)}
+                {formatAttributeRow("Willpower", mawffStats.Willpower, TrainingEffectEnums.Willpower)}
+                {formatAttributeRow("Fluorescence", mawffStats.Fluorescence, TrainingEffectEnums.Fluorescence)}
+                {formatAttributeRow("Fluffiness", mawffStats.Fluffiness, TrainingEffectEnums.Fluffiness)}
 
                 {formatSkillBlock(mawffStats.SkillPoints, mawffStats.skills)}
 
