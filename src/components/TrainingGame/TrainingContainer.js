@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { TrainingEffectEnums } from '../../utility/enums';
 import { makeStartingCharacterSheet } from '../../utility/characterSheets';
 import { NewJobTurns, makeQuotas, makeJobs } from '../../utility/scenarioMechanics';
+import { calculateUnrandomizedTrainingEffects } from '../../utility/trainingModifiers';
 
 import TrainingActivityPanel from './TrainingActivityPanel'
 import MAWFFCard from "../PlayerCard/MAWFFCard";
@@ -25,6 +26,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     const [offeredJobsList, setOfferedJobsList] = useState(null);
 
     const [hoveringItem, setHoveringItem] = useState(null);
+    const [hoveringEffects, setHoveringEffects] = useState(null);
 
     
     const maxStamina = 100;
@@ -43,6 +45,8 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         setAllJobsList(makeJobs());
         setActiveJobsList([null, null, null]);
         setOfferedJobsList([]);
+
+        setHoveringItem(null);
     }, [name, pronouns, image]);
 
     useEffect(() => {
@@ -62,6 +66,13 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                 setCurrentQuota(null);
         }
     }, [currentTurn, quotas, currentQuota]);
+
+    useEffect(() => {
+        if (hoveringItem)
+            setHoveringEffects(calculateUnrandomizedTrainingEffects(hoveringItem.checkCurrentLevelEffects(), []))
+        else
+            setHoveringEffects(null);
+    }, [hoveringItem]);
 
     const updateStamina = (staminaChange) => {
         if (staminaChange + stamina > maxStamina) {
@@ -190,15 +201,15 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     };
 
 
-    const processTurnAction = (doTurnAction) => { // TODO implement this process for cleaner turn actions/presentation
-        // TODO set action-blocking/animation overlay
+    //const processTurnAction = (doTurnAction) => { // TODO implement this process for cleaner turn actions/presentation
+    //    // TODO set action-blocking/animation overlay
 
-        doTurnAction();
+    //    doTurnAction();
 
-        endTurn();
+    //    endTurn();
 
-        // TODO unset action-blocking/animation overlay
-    }
+    //    // TODO unset action-blocking/animation overlay
+    //}
 
     const endTurn = () => {
         let allowNextTurn = true;
@@ -243,14 +254,17 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     setOfferedJobsList(clonedOffers);
                 }
 
-                
+
             }
 
+            setHoveringItem(null);
             setCurrentTurn(currentTurn + 1);
         }
-            
-        else
+
+        else {
+            setHoveringItem(null);
             finalizeTraining(characterSheet);
+        }
         
     }
 
@@ -270,7 +284,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     quotas={quotas}
                     stamina={stamina}
                     maxStamina={maxStamina}
-                    tooltipItem={hoveringItem}
+                    tooltipItem={hoveringEffects}
                 />
             </div>
 
@@ -288,7 +302,6 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     endTurn={endTurn}
                     characterSheet={characterSheet}
                     characterStamina={stamina}
-                    hoveringItem={hoveringItem}
                     setHoveringItem={setHoveringItem}
                 />
             </div>
@@ -296,7 +309,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
             <div className="col-lg-3 my-3" >
                 <MAWFFCard
                     mawffStats={characterSheet}
-                    tooltipItem={hoveringItem}
+                    tooltipItem={hoveringEffects}
                 />
             </div>
 

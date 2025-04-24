@@ -170,6 +170,7 @@ h1, h2, h3, h4, h5 {
 
 .quota-panel {
     padding: 0 4rem;
+    position: relative;
 
     display: inline-block;
 }
@@ -201,7 +202,6 @@ h1, h2, h3, h4, h5 {
     width: 50%;
     border-radius: 6px;
 }
-
 
 .tooltip-popup {
     border-radius: 10px;

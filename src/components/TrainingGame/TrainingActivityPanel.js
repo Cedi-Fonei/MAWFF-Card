@@ -3,19 +3,13 @@ import { useState, useEffect, useMemo } from 'react';
 import { defaultFacilitiesExercise, defaultFacilitiesStudies, defaultFacilitiesMarathon, defaultFacilitiesPhotomeditation, defaultFacilitiesPreening } from '../../utility/trainingActivities';
 import { calculateUnrandomizedTrainingEffects } from '../../utility/trainingModifiers';
 
-function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet, characterStamina, hoveringItem, setHoveringItem }) { 
+function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet, characterStamina, setHoveringItem }) { 
 
-    // PROBLEM; trainingFacilities are updating, but their displays are NOT updating.
-    // I know there's something to fix this within react.js's tools but I've forgotten what it is. a ref? something else?
     const [trainingFacilities, setTrainingFacilities] = useState([]);
-
-    //const [hoveringOption, setHoveringOption] = useState(null);
 
     const baseExpGain = 10;
 
     const reset = () => {
-        // TODO build facility objects!!! Design them!
-        // TODO These should probably be defined in a different js file and imported, huh?
         setTrainingFacilities([
             defaultFacilitiesExercise,
             defaultFacilitiesStudies,
@@ -37,7 +31,7 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
 
             trainingFacility.checkTrainingLevelup();
 
-            let facilitiesForSet = [... trainingFacilities];
+            let facilitiesForSet = [...trainingFacilities];
             facilitiesForSet[index] = trainingFacility;
             setTrainingFacilities(facilitiesForSet);
         }
@@ -55,10 +49,9 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
     }
 
     const renderTrainingFacility = (trainingFacility, index) => {
-        // Sofar so good, let's make this LEGIBLE and PRACTICAL TO USE next before we add actually training mechanics
         return (<button key={index} onClick={() => applyTraining(trainingFacility, index)}
             className="training-facility-selectable"
-            onMouseOver={() => setHoveringItem(calculateUnrandomizedTrainingEffects(trainingFacility.checkCurrentLevelEffects(), []))}
+            onMouseOver={() => setHoveringItem(trainingFacility)}
             onMouseOut={() => setHoveringItem(null)}
         >
             <div className="vstack gap-2">
@@ -112,17 +105,6 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
     return (<>
 
         {trainingFacilities?.length && <>
-
-            { /* 
-            <span>TEMPORARY TEST HOVER DISPLAY</span>
-
-            <div className="row">
-                {hoveringItem && <span>{JSON.stringify(calculateUnrandomizedTrainingEffects(hoveringItem.checkCurrentLevelEffects(), []))}</span>}
-                <span></span>
-            </div>
-            */ }
-
-
 
             <div className="row d-flex justify-content-center">
                 {renderTrainingFacility(trainingFacilities[0], 0)}
