@@ -26,6 +26,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     const [offeredJobsList, setOfferedJobsList] = useState(null);
 
     const [hoveringItem, setHoveringItem] = useState(null);
+    const [hoveringJob, setHoveringJob] = useState(null);
     const [hoveringEffects, setHoveringEffects] = useState(null);
 
     
@@ -47,6 +48,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         setOfferedJobsList([]);
 
         setHoveringItem(null);
+        setHoveringJob(null);
     }, [name, pronouns, image]);
 
     useEffect(() => {
@@ -69,10 +71,12 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
     useEffect(() => {
         if (hoveringItem)
-            setHoveringEffects(calculateUnrandomizedTrainingEffects(hoveringItem.checkCurrentLevelEffects(), []))
+            setHoveringEffects(calculateUnrandomizedTrainingEffects(hoveringItem.checkCurrentLevelEffects(), []));
+        else if (hoveringJob)
+            setHoveringEffects(calculateUnrandomizedTrainingEffects(hoveringJob.successRewards, []));
         else
             setHoveringEffects(null);
-    }, [hoveringItem]);
+    }, [hoveringItem, hoveringJob]);
 
     const updateStamina = (staminaChange) => {
         if (staminaChange + stamina > maxStamina) {
@@ -303,6 +307,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     characterSheet={characterSheet}
                     characterStamina={stamina}
                     setHoveringItem={setHoveringItem}
+                    setHoveringJob={setHoveringJob}
                 />
             </div>
 

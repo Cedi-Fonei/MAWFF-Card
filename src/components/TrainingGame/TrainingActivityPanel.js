@@ -1,9 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 
 import { defaultFacilitiesExercise, defaultFacilitiesStudies, defaultFacilitiesMarathon, defaultFacilitiesPhotomeditation, defaultFacilitiesPreening } from '../../utility/trainingActivities';
-import { calculateUnrandomizedTrainingEffects } from '../../utility/trainingModifiers';
 
-function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet, characterStamina, setHoveringItem }) { 
+function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet, characterStamina, setHoveringItem, setHoveringJob }) { 
 
     const [trainingFacilities, setTrainingFacilities] = useState([]);
 
@@ -92,7 +91,11 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
             return <button className="wide-button" disabled>Vacant job posting...</button>;
         }
 
-        return (<button className="wide-button" onClick={() => applyJob(job, index)}>
+        return (<button className="wide-button"
+            onClick={() => applyJob(job, index)}
+            onMouseOver={() => setHoveringJob(job)}
+            onMouseOut={() => setHoveringJob(null)}
+        >
             <div className="row">
                 <span className="col-md-10">{job.name}</span>
                 <span className="col-md-2">{job.checkJobSuccessRate(characterSheet)}%</span>
