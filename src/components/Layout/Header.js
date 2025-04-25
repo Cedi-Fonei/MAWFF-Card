@@ -5,10 +5,21 @@ export default function Header() {
         <div className="header bg-primary">
 
             <div className="row">
-                <h2 className="col-xl-9">MAWFF Card Maker: V. Employed Skeleton</h2>
+                <h2 className="col-xl-9">MAWFF Card Maker: V. SPARKING</h2>
 
-                {/*NOTE always update this before deploying to gh-pages!*/}
-                <span className="col-xl-3">Last Updated: April 22nd 2025</span>
+                {/*NOTE always update this before AND after deploying to gh-pages!*/}
+                <div className="col-xl-3">
+                    <div>Last Updated: April 22nd 2025</div>
+                    <div className="whats-new-tag tooltip-container">
+                        What's New?
+                        <div className="tip">
+                            <ul>
+                                <li>Added various tooltips. Like this one!</li>
+                                {/*<li>Added Lamp and Spark mechanics, giving your training various passive modifiers you acquire at random! Use them carefully!</li>*/}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             

@@ -127,11 +127,28 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     }, [turnsLeft, characterSheet, finalizeTraining]);
 
     const relevantSparks = useMemo(() => {
-        let ret = [];
 
-        //acquiredLamps.forEach()
+        if (acquiredLamps) {
+            //let ret = defaultSparks.filter(ds =>
+            //    acquiredLamps.some(al =>
+            //        al.sparksGenerated?.some(sg => sg.spark.id === ds.id)
+            //    )
+            //);
 
-        return ret;
+            //console.log(JSON.stringify(ret));
+
+            ////defaultSparks.filter(ds => acquiredLamps.some(al => al.sparksGenerated?.some(sg => sg.spark.id === ds.id)));
+
+            return defaultSparks.filter(ds =>
+                acquiredLamps.some(al =>
+                    al.sparksGenerated?.some(sg => sg.spark.id === ds.id)
+                )
+            );
+        }
+        else {
+            return [];
+        }
+        
     }, [acquiredLamps]);
 
     const applyListOfEffects = (effectList) => {

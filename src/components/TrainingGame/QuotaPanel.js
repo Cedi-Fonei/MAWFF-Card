@@ -70,21 +70,16 @@ function QuotaPanel({ pollen, currentTurn, quotas, stamina, maxStamina, tooltipI
                     </div>
 
                     <div className="col-6 container">
-                        {acquiredLamps && acquiredLamps.map((lamp) =>
-                            <div key={lamp.id} className="gameplay-icon" alt={lamp.name} style={{ backgroundImage: ("url(" + lamp.icon + ")") }}>
-                                <span className="gameplay-icon-tooltip">{lamp.description}</span>
+                        {acquiredLamps && acquiredLamps.map((lamp, lampIndex) =>
+                            <div key={lampIndex} className="gameplay-icon tooltip-container" alt={lamp.name} style={{ backgroundImage: ("url(" + lamp.icon + ")") }}>
+                                <span className="tip">
+                                    {lamp.description}
+                                </span>
                             </div>
                         )}
                     </div>
                 </div>
 
-                
-                {/*<img key={lamp.id} className="gameplay-icon" src={lamp.icon} alt={lamp.name}>*/}
-                {/*    <span className="gameplay-icon-tooltip">{lamp.description}</span>*/}
-                {/*</img>*/}
-               
-
-                
             </div>);
         }
         else {

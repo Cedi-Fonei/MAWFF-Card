@@ -10,7 +10,7 @@ function ResultsContainer({ name, pronouns, image, characterSheet }) {
             <div className="col-md-6">
                 <p>There's a lot more I wanna add to this, this is mega placeholdery aaaaa thank you for playing please tell me if something exploded I like knowing how to make things not explode</p>
                 <button onClick={() => window.location.reload()}>Click here if you want to restart</button>
-                <p>Some near-future todos I wanna implement (ACTUALLY near future this time I mean it) include;</p>
+                <p>Some near-future todos I wanna implement include;</p>
                 <ul>
                     <li>Gradually making everything prettier</li>
                     <li>Random training modifiers</li>

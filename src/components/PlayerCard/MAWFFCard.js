@@ -64,21 +64,6 @@ export default function MAWFFCard({ mawffStats, tooltipItem }) {
         </div>)
     }
 
-    //const statGainsTooltips = useMemo(() => {
-
-    //    if (tooltipItem) {
-    //        let retArray = [];
-
-    //        if (tooltipItem.find(e => e.effect === TrainingEffectEnums.StaminaChange))
-    //            retArray.push()
-    //    }
-    //    else {
-    //        return [];
-    //    }
-
-        
-    //}, [tooltipItem])
-
     if (mawffStats) {
         return (
             <div className="mawff-card">

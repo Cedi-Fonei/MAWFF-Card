@@ -225,6 +225,28 @@ h1, h2, h3, h4, h5 {
     color: red;
 }
 
+
+
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-container .tip {
+    visibility: hidden;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    box-shadow: rgba(0, 0, 20, 0.4) 3px 3px;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip-container:hover .tip {
+    visibility: visible;
+}
+
 .gameplay-icon {
     width: 50px;
     height: 50px;
@@ -234,21 +256,26 @@ h1, h2, h3, h4, h5 {
     display: inline-block;
 }
 
-.gameplay-icon .gameplay-icon-tooltip {
-    visibility: hidden;
+.gameplay-icon .tip {
     min-width: 150px;
     background-color: palegreen;
     color: black;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    box-shadow: rgba(0, 0, 20, 0.4) 3px 3px;
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
+    
     top: 50px;
 }
 
-.gameplay-icon:hover .gameplay-icon-tooltip {
-    visibility: visible;
+.whats-new-tag {
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: black;
+    margin: 3px;
+    padding: 3px;
+    background-color: white;
 }
+
+.whats-new-tag .tip {
+    min-width: 200px;
+    background-color: lightgrey;
+    color: black;
+}
+
