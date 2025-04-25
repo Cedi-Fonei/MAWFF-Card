@@ -3,7 +3,7 @@ import { TrainingEffectEnums } from '../../utility/enums';
 
 import EffectTooltip from './Popups/EffectTooltip';
 
-function QuotaPanel({ pollen, currentTurn, quotas, stamina, maxStamina, tooltipItem }) {
+function QuotaPanel({ pollen, currentTurn, quotas, stamina, maxStamina, tooltipItem, acquiredLamps }) {
 
     
     const endOfCampaign = useMemo(() => {
@@ -41,31 +41,47 @@ function QuotaPanel({ pollen, currentTurn, quotas, stamina, maxStamina, tooltipI
             return (<div className="quota-panel">
 
                 <div className="row">
-                    <div className="col-6" style={{ position: 'relative' }}>
-                        <EffectTooltip
-                            value={tooltipItem?.find(e => e.effect === TrainingEffectEnums.Pollen)?.value}
-                            positionOffsets={{ top: "20px", right: "75px" }}
-                        />
-                        Pollen: {pollen}/{nextQuota.quotaScore}
-                    </div>
-
-                    <div className="col-6">Turns until Quota #{quotaNumber}: {nextQuota.turnDeadline - currentTurn}</div>
-                </div>
-
-                <div className="row">
-                    
                     <div className="col-6">
-                        <span className="mx-2">Stamina</span>
-                        <EffectTooltip
-                            value={staminaTooltipValue}
-                            positionOffsets={{ bottom: "-25px" }}
-                        />
-                        <progress value={stamina} max={maxStamina} />
+                        <div className="row">
+                            <div className="col-6" style={{ position: 'relative' }}>
+                                <EffectTooltip
+                                    value={tooltipItem?.find(e => e.effect === TrainingEffectEnums.Pollen)?.value}
+                                    positionOffsets={{ top: "20px", right: "75px" }}
+                                />
+                                Pollen: {pollen}/{nextQuota.quotaScore}
+                            </div>
 
+                            <div className="col-6">Turns until Quota #{quotaNumber}: {nextQuota.turnDeadline - currentTurn}</div>
+                        </div>
+
+                        <div className="row">
+
+                            <div className="col-6">
+                                <span className="mx-2">Stamina</span>
+                                <EffectTooltip
+                                    value={staminaTooltipValue}
+                                    positionOffsets={{ bottom: "-25px" }}
+                                />
+                                <progress value={stamina} max={maxStamina} />
+
+                            </div>
+                            <div className="col-6">{endOfCampaign - currentTurn} turns left!</div>
+                        </div>
                     </div>
-                    <div className="col-6">{endOfCampaign - currentTurn} turns left!</div>
+
+                    <div className="col-6 container">
+                        {acquiredLamps && acquiredLamps.map((lamp) =>
+                            <div key={lamp.id} className="gameplay-icon" alt={lamp.name} style={{ backgroundImage: ("url(" + lamp.icon + ")") }}>
+                                <span className="gameplay-icon-tooltip">{lamp.description}</span>
+                            </div>
+                        )}
+                    </div>
                 </div>
 
+                
+                {/*<img key={lamp.id} className="gameplay-icon" src={lamp.icon} alt={lamp.name}>*/}
+                {/*    <span className="gameplay-icon-tooltip">{lamp.description}</span>*/}
+                {/*</img>*/}
                
 
                 

@@ -171,6 +171,7 @@ h1, h2, h3, h4, h5 {
 .quota-panel {
     padding: 0 4rem;
     position: relative;
+    width: 80%;
 
     display: inline-block;
 }
@@ -222,4 +223,32 @@ h1, h2, h3, h4, h5 {
 
 .effect-negative {
     color: red;
+}
+
+.gameplay-icon {
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+
+    position: relative;
+    display: inline-block;
+}
+
+.gameplay-icon .gameplay-icon-tooltip {
+    visibility: hidden;
+    min-width: 150px;
+    background-color: palegreen;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    box-shadow: rgba(0, 0, 20, 0.4) 3px 3px;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 50px;
+}
+
+.gameplay-icon:hover .gameplay-icon-tooltip {
+    visibility: visible;
 }

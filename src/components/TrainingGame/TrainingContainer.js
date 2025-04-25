@@ -4,6 +4,7 @@ import { TrainingEffectEnums } from '../../utility/enums';
 import { makeStartingCharacterSheet } from '../../utility/characterSheets';
 import { NewJobTurns, makeQuotas, makeJobs } from '../../utility/scenarioMechanics';
 import { calculateUnrandomizedTrainingEffects } from '../../utility/trainingModifiers';
+import { defaultLamps, defaultSparks } from '../../utility/lamps';
 
 import TrainingActivityPanel from './TrainingActivityPanel'
 import MAWFFCard from "../PlayerCard/MAWFFCard";
@@ -24,6 +25,8 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     const [allJobsList, setAllJobsList] = useState(null);
     const [activeJobsList, setActiveJobsList] = useState(null);
     const [offeredJobsList, setOfferedJobsList] = useState(null);
+
+    const [acquiredLamps, setAcquiredLamps] = useState(null);
 
     const [hoveringItem, setHoveringItem] = useState(null);
     const [hoveringJob, setHoveringJob] = useState(null);
@@ -46,6 +49,8 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         setAllJobsList(makeJobs());
         setActiveJobsList([null, null, null]);
         setOfferedJobsList([]);
+
+        setAcquiredLamps([defaultLamps[0], defaultLamps[0], defaultLamps[1], defaultLamps[6], defaultLamps[8]]); // TESTING LAMP BEHAVIOR
 
         setHoveringItem(null);
         setHoveringJob(null);
@@ -120,6 +125,14 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
             finalizeTraining(characterSheet);
         }
     }, [turnsLeft, characterSheet, finalizeTraining]);
+
+    const relevantSparks = useMemo(() => {
+        let ret = [];
+
+        //acquiredLamps.forEach()
+
+        return ret;
+    }, [acquiredLamps]);
 
     const applyListOfEffects = (effectList) => {
         let clonedSheet = { ...characterSheet };
@@ -289,6 +302,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     stamina={stamina}
                     maxStamina={maxStamina}
                     tooltipItem={hoveringEffects}
+                    acquiredLamps={acquiredLamps}
                 />
             </div>
 

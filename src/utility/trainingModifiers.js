@@ -1,4 +1,4 @@
-import { SparkDecayPriority, SparkEffectScaling, SparkPlacementLogic, TrainingEffectEnums } from './enums';
+import { SparkEffectScaling } from './enums';
 
 // TODO this new file is my current priority. I want to refactor the processes for calculating training effects in a way that reliably and 
 
