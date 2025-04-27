@@ -43,24 +43,29 @@ function QuotaPanel({ pollen, currentTurn, quotas, stamina, maxStamina, tooltipI
                 <div className="row">
                     <div className="col-6">
                         <div className="row">
-                            <div className="col-6" style={{ position: 'relative' }}>
-                                <EffectTooltip
-                                    value={tooltipItem?.find(e => e.effect === TrainingEffectEnums.Pollen)?.value}
-                                    positionOffsets={{ top: "20px", right: "75px" }}
-                                />
-                                Pollen: {pollen}/{nextQuota.quotaScore}
+                            <div className="col-6">
+                                <span style={{ position: 'relative' }}>
+                                    Pollen: {pollen}/{nextQuota.quotaScore}
+                                    <EffectTooltip
+                                        value={tooltipItem?.find(e => e.effect === TrainingEffectEnums.Pollen)?.value}
+                                        positionOffsets={{ top: "-20px", left: "105%" }}
+                                    />
+                                </span>
+                                
                             </div>
 
                             <div className="col-6">Turns until Quota #{quotaNumber}: {nextQuota.turnDeadline - currentTurn}</div>
                         </div>
 
+                        <div className="my-3"/>
+
                         <div className="row">
 
-                            <div className="col-6">
+                            <div className="col-6" style={{ position: 'relative' }}>
                                 <span className="mx-2">Stamina</span>
                                 <EffectTooltip
                                     value={staminaTooltipValue}
-                                    positionOffsets={{ bottom: "-25px" }}
+                                    positionOffsets={{ bottom: "-30px", left: "40%" }}
                                 />
                                 <progress value={stamina} max={maxStamina} />
 

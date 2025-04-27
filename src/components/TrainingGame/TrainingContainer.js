@@ -50,11 +50,11 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         setActiveJobsList([null, null, null]);
         setOfferedJobsList([]);
 
-        setAcquiredLamps([defaultLamps[0], defaultLamps[0], defaultLamps[1], defaultLamps[6], defaultLamps[8]]);
+        //setAcquiredLamps([defaultLamps[0], defaultLamps[0], defaultLamps[1], defaultLamps[6], defaultLamps[8]]);
         //setAcquiredLamps([defaultLamps[0], defaultLamps[0], defaultLamps[1], defaultLamps[6], defaultLamps[8],
         //    defaultLamps[3], defaultLamps[4], defaultLamps[5], defaultLamps[7], defaultLamps[9], defaultLamps[2]
         //]); // TESTING LAMP BEHAVIOR
-        //setAcquiredLamps([]);
+        setAcquiredLamps([]);
 
         setHoveringItem(null);
         setHoveringJob(null);

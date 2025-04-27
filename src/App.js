@@ -32,44 +32,37 @@ function App() {
         setCharacterSheet(developedCharacterSheet);
     }
 
-    // COMPONENTS TODO
-    // ALL CreationForms
-    // ALL Layout
-    //// Update footer further when adding more assets
-    // ALL TrainingGame
-    // ALL PlayerCard
+    return (
+        <div className="App">
 
-  return (
-      <div className="App">
+            <Header />
 
-          <Header />
-
-          {
-              !characterSheet ? (
-                  (!charName || !charPronouns || !charImage)
-                  ? <CreateCharacterContainer
-                      setBasicInformation={setBasicInformation}
-                  />
-                  : <TrainingContainer
-                      name={charName}
-                      pronouns={charPronouns}
-                      image={charImage}
-                      finalizeTraining={finalizeTraining}
-                      className="container"
-                      />
-              )
-                  : <ResultsContainer
+            {
+                !characterSheet ? (
+                    (!charName || !charPronouns || !charImage)
+                    ? <CreateCharacterContainer
+                        setBasicInformation={setBasicInformation}
+                    />
+                    : <TrainingContainer
+                        name={charName}
+                        pronouns={charPronouns}
+                        image={charImage}
+                        finalizeTraining={finalizeTraining}
+                        className="container"
+                        />
+                )
+                    : <ResultsContainer
                         name={charName}
                         pronouns={charPronouns}
                         image={charImage}
                         characterSheet={characterSheet}
                     />
-          }
+            }
 
-          <Footer />
+            <Footer />
         
     </div>
-  );
+    );
 }
 
 export default App;
