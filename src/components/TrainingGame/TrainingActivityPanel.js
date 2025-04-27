@@ -107,7 +107,7 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
 
     return (<>
 
-        {trainingFacilities?.length && <>
+        {trainingFacilities?.length && <div className="container">
 
             <div className="row d-flex justify-content-center">
                 {renderTrainingFacility(trainingFacilities[0], 0)}
@@ -132,7 +132,7 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
                 {renderJob(jobs[2], 2)}
             </div>
             
-        </>}
+        </div>}
 
         
 

@@ -176,6 +176,22 @@ h1, h2, h3, h4, h5 {
     display: inline-block;
 }
 
+.sparks-glossary {
+    padding: 0.5rem 1rem;
+    position: relative;
+    width: 250px;
+
+    display: flex;
+    justify-content: flex-start
+}
+
+.sparks-glossary .gameplay-tip {
+    border-top: 1px solid black;
+
+    display: flex;
+    justify-content: flex-start
+}
+
 .wide-button {
     width: 80%;
     height: 3rem;
@@ -263,6 +279,13 @@ h1, h2, h3, h4, h5 {
     
     top: 50px;
 }
+.gameplay-tip .tip {
+    min-width: 150px;
+    background-color: palegreen;
+    color: black;
+    top: 50px;
+}
+
 
 .whats-new-tag {
     border-radius: 10px;

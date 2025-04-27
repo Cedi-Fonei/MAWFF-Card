@@ -8,7 +8,7 @@ function ResultsContainer({ name, pronouns, image, characterSheet }) {
 
         <div className="row">
             <div className="col-md-6">
-                <p>There's a lot more I wanna add to this, this is mega placeholdery aaaaa thank you for playing please tell me if something exploded I like knowing how to make things not explode</p>
+                <p>There's a lot more I wanna add to this aaaaa thank you for playing!!!</p>
                 <button onClick={() => window.location.reload()}>Click here if you want to restart</button>
                 <p>Some near-future todos I wanna implement include;</p>
                 <ul>

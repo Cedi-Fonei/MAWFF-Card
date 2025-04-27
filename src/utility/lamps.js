@@ -1,15 +1,16 @@
 import { TrainingEffectEnums, SparkDecayPriority, SparkEffectScaling, SparkPlacementLogic, LampRarity, LampProcTiming, LampProcCondition } from './enums';
-//import light_bulb_red from '../images/Lamps/light_bulb_red.svg'; // TODO add more
-
-/*import { light_bulb_red, light_bulb_blue, light_bulb } from '../images/Lamps';*/
 
 import {
     candle_light_blue, candle_light_green, candle_light_purple, candle_light_red, candle_light_yellow,
-
     light_bulb_blue, light_bulb_green, light_bulb_purple, light_bulb_red, light_bulb_yellow
 } from '../images/Lamps';
 
-import laser_burst_red from '../images/Sparks/laser_burst_red.svg'; // TODO add more
+import {
+    candlebright_blue, candlebright_green, candlebright_purple, candlebright_red, candlebright_yellow,
+    laser_burst_blue, laser_burst_green, laser_burst_purple, laser_burst_red, laser_burst_yellow
+
+} from '../images/Sparks';
+
 
 const sparks_mightGlimmer = {
     id: 1,
@@ -27,7 +28,7 @@ const sparks_mightGlimmer = {
 const sparks_mightEmber = {
     id: 2,
     name: "Might Ember",
-    icon: "TODO",
+    icon: candlebright_red,
     description: "Increase this turn's Might growth by 15%",
 
     effect: 15,
@@ -40,7 +41,7 @@ const sparks_mightEmber = {
 const sparks_sightGlimmer = {
     id: 3,
     name: "Sight Glimmer",
-    icon: "TODO",
+    icon: laser_burst_blue,
     description: "Gain +2 Acuity",
 
     effect: 2,
@@ -53,7 +54,7 @@ const sparks_sightGlimmer = {
 const sparks_sightEmber = {
     id: 4,
     name: "Sight Ember",
-    icon: "TODO",
+    icon: candlebright_blue,
     description: "Increase this turn's Acuity growth by 15%",
 
     effect: 15,
@@ -66,7 +67,7 @@ const sparks_sightEmber = {
 const sparks_wightGlimmer = {
     id: 5,
     name: "Wight Glimmer",
-    icon: "TODO",
+    icon: laser_burst_green,
     description: "Gain +2 Willpower",
 
     effect: 2,
@@ -79,7 +80,7 @@ const sparks_wightGlimmer = {
 const sparks_wightEmber = {
     id: 6,
     name: "Wight Ember",
-    icon: "TODO",
+    icon: candlebright_green,
     description: "Increase this turn's Willpower growth by 15%",
 
     effect: 15,
@@ -92,7 +93,7 @@ const sparks_wightEmber = {
 const sparks_lightGlimmer = {
     id: 7,
     name: "Light Glimmer",
-    icon: "TODO",
+    icon: laser_burst_yellow,
     description: "Gain +2 Fluorescence",
 
     effect: 2,
@@ -105,7 +106,7 @@ const sparks_lightGlimmer = {
 const sparks_lightEmber = {
     id: 8,
     name: "Light Ember",
-    icon: "TODO",
+    icon: candlebright_yellow,
     description: "Increase this turn's Fluorescence growth by 15%",
 
     effect: 15,
@@ -118,7 +119,7 @@ const sparks_lightEmber = {
 const sparks_dightGlimmer = {
     id: 9,
     name: "Dight Glimmer",
-    icon: "TODO",
+    icon: laser_burst_purple,
     description: "Gain +2 Fluffiness",
 
     effect: 2,
@@ -131,7 +132,7 @@ const sparks_dightGlimmer = {
 const sparks_dightEmber = {
     id: 10,
     name: "Dight Ember",
-    icon: "TODO",
+    icon: candlebright_purple,
     description: "Increase this turn's Fluffiness growth by 15%",
 
     effect: 15,

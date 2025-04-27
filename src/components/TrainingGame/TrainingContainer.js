@@ -50,7 +50,11 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         setActiveJobsList([null, null, null]);
         setOfferedJobsList([]);
 
-        setAcquiredLamps([defaultLamps[0], defaultLamps[0], defaultLamps[1], defaultLamps[6], defaultLamps[8]]); // TESTING LAMP BEHAVIOR
+        setAcquiredLamps([defaultLamps[0], defaultLamps[0], defaultLamps[1], defaultLamps[6], defaultLamps[8]]);
+        //setAcquiredLamps([defaultLamps[0], defaultLamps[0], defaultLamps[1], defaultLamps[6], defaultLamps[8],
+        //    defaultLamps[3], defaultLamps[4], defaultLamps[5], defaultLamps[7], defaultLamps[9], defaultLamps[2]
+        //]); // TESTING LAMP BEHAVIOR
+        //setAcquiredLamps([]);
 
         setHoveringItem(null);
         setHoveringJob(null);
@@ -194,10 +198,13 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         // Returns a random integer from 1 to 100:
         let succcessRoll = Math.floor(Math.random() * 100) + 1;
 
-        let isSuccess = failRate < succcessRoll; // TODO Show fail rates when selecting training!
+        let isSuccess = failRate < succcessRoll;
 
         if (isSuccess) {
-            applyListOfEffects(trainingFacility.trainingChanges.find(tc => tc.level === trainingFacility.level).effects);
+            let unrandomizedEffects = calculateUnrandomizedTrainingEffects(trainingFacility.checkCurrentLevelEffects(), []);
+            // TODO also add random effect modifiers... once they are implemented on facilities.
+
+            applyListOfEffects(unrandomizedEffects);
         }
 
         return isSuccess;
@@ -302,8 +309,22 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         
     }
 
+    const renderSparksHints = (sparks) => { 
 
-    //<p>TODO add Lamps panel...</p>
+
+        return (<div className="container vstack gap-1 sparks-glossary">
+            <h5>Sparks Glossary</h5>
+            {sparks?.map((s, sIndex) => <div key={sIndex} className="gameplay-tip tooltip-container">
+                <div className="gameplay-icon" alt={s.name} style={{ backgroundImage: ("url(" + s.icon + ")") }} />
+                
+                <span>{s.name}</span>
+                <div className="tip" style={{ left: "90%", top: "0"}}>
+                    {s.description}
+                </div>
+            </div>)}
+            {!sparks?.length && <span>If only you had a Lamp...</span> }
+        </div>)
+    }
 
     return (<>
 
@@ -325,6 +346,8 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
             <div className="col-lg-1">
                 <TipsPanel />
+
+                {renderSparksHints(relevantSparks)}
             </div>
 
             <div className="col-lg-7 my-3" >

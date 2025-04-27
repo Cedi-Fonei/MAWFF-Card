@@ -5,21 +5,18 @@ function TipsPanel() {
     const [tipIndex, setTipIndex] = useState(0);
 
     const tipList = [
-        /*0*/ "If you want a card with big stat numbers, you gotta make your mawff WORK FOR IT!",
-        /*1*/ "Click the Training Facilities to make your mawff train! Different facilities grow different stats!",
-        /*2*/ "Training facilties level up as you keep using them! They have a max level of 5!",
-        /*3*/ "Most training costs Stamina! The more you tire yourself out, the higher the chances your training fails!",
-        /*4*/ "Resting will restore some Stamina!",
-        /*5*/ "You have a Quota to get a certain amount of Pollen every 20 turns!",
-        /*6*/ "If you make your Pollen quota, you get a bunch of bonus stats! But if you fail the quota, your training ends!",
-        /*7*/ "You can work jobs for lots of Pollen and some stats to boot, but they're hard! You'll need a good stat and trainee rank to handle them...",
-        
+        /*0*/ "Click the Training Facilities to make your mawff train! Different facilities grow different stats!",
+        /*1*/ "Training facilties level up as you keep using them! They have a max level of 5!",
+        /*2*/ "Most training costs Stamina! The more you tire yourself out, the higher the chances your training fails!",
+        /*3*/ "If you make your Pollen quota every 20 turns, you get a bunch of bonus stats! But if you fail the quota, your training ends!",
+        /*4*/ "You can work jobs for lots of Pollen and some stats to boot, but they're hard! You'll need a good stat and trainee rank to handle them...",
         // ^ Latest real mechanics explanation.
         // v New mechanics below!
-        /*8*/ "More training mechanics will be added in future updates!"
+        /*5*/ "Lamps create Sparks! Sparks buff training facilities when you use them, but they shuffle around and decay every turn.",
+        /*6*/ "More training mechanics will be added in future updates!"
     ];
 
-    const newIndex = 8; 
+    const newIndex = 5; 
 
     return (<div className="container tips-panel position-relative vstack gap-1">
         <span>{tipList[tipIndex]}</span>

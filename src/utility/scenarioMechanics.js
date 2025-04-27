@@ -52,7 +52,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Might, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 20 },
-            { effect: TrainingEffectEnums.Pollen, value: 400 }
+            { effect: TrainingEffectEnums.Pollen, value: 500 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -64,7 +64,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Acuity, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 20 },
-            { effect: TrainingEffectEnums.Pollen, value: 400 }
+            { effect: TrainingEffectEnums.Pollen, value: 500 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -76,7 +76,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Willpower, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 20 },
-            { effect: TrainingEffectEnums.Pollen, value: 400 }
+            { effect: TrainingEffectEnums.Pollen, value: 500 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -88,7 +88,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Fluorescence, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 20 },
-            { effect: TrainingEffectEnums.Pollen, value: 400 }
+            { effect: TrainingEffectEnums.Pollen, value: 500 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -100,7 +100,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Fluffiness, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 20 },
-            { effect: TrainingEffectEnums.Pollen, value: 400 }
+            { effect: TrainingEffectEnums.Pollen, value: 500 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -112,7 +112,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Might, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 30 },
-            { effect: TrainingEffectEnums.Pollen, value: 1000 }
+            { effect: TrainingEffectEnums.Pollen, value: 1500 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -124,7 +124,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Acuity, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 30 },
-            { effect: TrainingEffectEnums.Pollen, value: 1000 }
+            { effect: TrainingEffectEnums.Pollen, value: 1500 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -136,7 +136,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Willpower, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 30 },
-            { effect: TrainingEffectEnums.Pollen, value: 1000 }
+            { effect: TrainingEffectEnums.Pollen, value: 1500 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -148,7 +148,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Fluorescence, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 30 },
-            { effect: TrainingEffectEnums.Pollen, value: 1000 }
+            { effect: TrainingEffectEnums.Pollen, value: 1500 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -160,7 +160,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Fluffiness, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 30 },
-            { effect: TrainingEffectEnums.Pollen, value: 1000 }
+            { effect: TrainingEffectEnums.Pollen, value: 1500 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -172,7 +172,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Might, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 50 },
-            { effect: TrainingEffectEnums.Pollen, value: 3000 }
+            { effect: TrainingEffectEnums.Pollen, value: 4000 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -184,7 +184,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Acuity, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 50 },
-            { effect: TrainingEffectEnums.Pollen, value: 3000 }
+            { effect: TrainingEffectEnums.Pollen, value: 4000 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -196,7 +196,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Willpower, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 50 },
-            { effect: TrainingEffectEnums.Pollen, value: 3000 }
+            { effect: TrainingEffectEnums.Pollen, value: 4000 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -208,7 +208,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Fluorescence, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 50 },
-            { effect: TrainingEffectEnums.Pollen, value: 3000 }
+            { effect: TrainingEffectEnums.Pollen, value: 4000 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -220,7 +220,7 @@ const allJobs = [
         successRewards: [
             { effect: TrainingEffectEnums.Fluffiness, value: 20 },
             { effect: TrainingEffectEnums.SkillPoints, value: 50 },
-            { effect: TrainingEffectEnums.Pollen, value: 3000 }
+            { effect: TrainingEffectEnums.Pollen, value: 4000 }
         ],
         checkJobSuccessRate: checkJobSuccessRate
     },
@@ -265,6 +265,6 @@ export const makeJobs = () => {
 
 
 
-export const makeQuotas = () => {  // FUTURE DEV NOTES Implement modifiers that increase the
+export const makeQuotas = () => {  // FUTURE DEV NOTES Implement modifiers that increase the quotas based on difficulty
     return baseQuotas;
 }
