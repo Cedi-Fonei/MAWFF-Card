@@ -10,6 +10,7 @@ import TrainingActivityPanel from './TrainingActivityPanel'
 import MAWFFCard from "../PlayerCard/MAWFFCard";
 import TipsPanel from './TipsPanel';
 import QuotaPanel from './QuotaPanel';
+import MidturnModal from './BetweenTurnsModal/MidturnModal';
 
 function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
@@ -31,6 +32,11 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     const [hoveringItem, setHoveringItem] = useState(null);
     const [hoveringJob, setHoveringJob] = useState(null);
     const [hoveringEffects, setHoveringEffects] = useState(null);
+
+    const [midturnOverlayOpen, setMidturnOverlayOpen] = useState(false);
+    const [nextTurnIsReady, setNextTurnIsReady] = useState(false);
+    const [midturnMessages, setMidturnMessages] = useState([])
+    const [lampsChoice, setLampsChoice] = useState([]);
 
     
     const maxStamina = 100;
@@ -58,6 +64,9 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
         setHoveringItem(null);
         setHoveringJob(null);
+
+        setMidturnOverlayOpen(false);
+        setNextTurnIsReady(true);
     }, [name, pronouns, image]);
 
     useEffect(() => {
@@ -251,6 +260,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
     //    // TODO unset action-blocking/animation overlay
     //}
+    //const beginTurnAction = useCallback((selectedItem, setAction) => { }, [])
 
     const endTurn = () => {
         let allowNextTurn = true;
@@ -327,6 +337,15 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     }
 
     return (<>
+
+        <MidturnModal
+            show={midturnOverlayOpen}
+            setShow={setMidturnOverlayOpen}
+            isLoadingNextTurn={!nextTurnIsReady}
+
+            messages={midturnMessages}
+            characterImage={characterSheet?.Image}
+        />
 
         <h2>How cool are you?</h2>
 
