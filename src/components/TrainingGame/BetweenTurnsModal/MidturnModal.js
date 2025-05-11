@@ -1,18 +1,41 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useMemo, useState } from "react";
 
 
-function MidturnModal({ show, setShow, isLoadingNextTurn, turnActionTitle, messages, setMessages, thisTurnChanges, characterImage, offeredLamps }) {
+function MidturnModal({ show, setShow, isLoadingNextTurn, turnActionTitle, messages, setMessages, thisTurnChanges, characterImage, offeredLamps, addSelectedLamp }) {
+
+    const [selectedLamp, setSelectedLamp] = useState(null);
+
+    const allowCloseModal = useMemo(() => {
+        if (isLoadingNextTurn)
+            return false;
+
+        if (offeredLamps?.length && !selectedLamp)
+            return false;
+
+
+        return true;
+    }, [isLoadingNextTurn, offeredLamps, selectedLamp]);
 
     function proceedToNextTurn() {
+        if (selectedLamp) {
+            if (!selectedLamp)
+                return;
+
+            addSelectedLamp(selectedLamp);
+            setSelectedLamp(null);
+        }
+
         setShow(false);
+
         setMessages([]);
-    }
+    };
 
     return (show &&
-    <div className="midturn-modal-dimbackground" onClick={() => { if (!isLoadingNextTurn) proceedToNextTurn(); } }>
-        <div className="midturn-modal">
+        <div className="midturn-modal-dimbackground" onClick={() => { if (allowCloseModal) proceedToNextTurn(); }}>
+            <div className="midturn-modal" onClick={(e) => e.stopPropagation()}>
+
                 <div className="midturn-modal-contents">
-                    {turnActionTitle ? <h3>Woah a test modal wowwww</h3> : <h3>Turn Results</h3>}
+                    {turnActionTitle ? <h3>{turnActionTitle}</h3> : <h3>Turn Results</h3>}
 
                     <div className="row">
                         <div className="col-lg-3 vstack gap-2">
@@ -22,7 +45,15 @@ function MidturnModal({ show, setShow, isLoadingNextTurn, turnActionTitle, messa
                         <div className="col-lg-9">
 
                             <div className="lamp-selector">
-                                
+                                {(offeredLamps?.length !== 0) && offeredLamps.map((lamp, lampIndex) =>
+                                    <div
+                                        key={lampIndex} onClick={() => setSelectedLamp(lamp)}
+                                        className={"lamp-choice tooltip-container" + (lamp === selectedLamp ? ' selected-lamp' : '')} alt={lamp.name} style={{ backgroundImage: ("url(" + lamp.icon + ")") }}
+                                    >
+                                    <span className="tip">
+                                        {lamp.description}
+                                    </span>
+                                </div>)}
                             </div>
 
                             <div className="position-relative absolute-bottom">
@@ -37,12 +68,15 @@ function MidturnModal({ show, setShow, isLoadingNextTurn, turnActionTitle, messa
                     
                     
                 </div>
+
+
                 <div className="position-absolute absolute-bottom justify-content-center">
-                    <button onClick={() => proceedToNextTurn()} disabled={isLoadingNextTurn}
+                    <button onClick={() => proceedToNextTurn()} disabled={!allowCloseModal}
                         style={{margin: "1rem"}}>
                         Continue
                     </button>
                 </div>
+
         </div>
     </div>
     );

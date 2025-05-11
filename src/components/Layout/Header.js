@@ -9,7 +9,8 @@ export default function Header() {
 
                 {/*NOTE always update this before AND after deploying to gh-pages!*/}
                 <div className="col-xl-4">
-                    <div>Last Updated: April 22nd 2025</div>
+                    {/*<div>Last Updated: April 22nd 2025</div>*/}
+                    <div>Last Updated: Developing update for May 2025...</div>
                     <div className="whats-new-tag tooltip-container">
                         What's New?
                         <div className="tip">

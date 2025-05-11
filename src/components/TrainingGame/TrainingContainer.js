@@ -35,8 +35,8 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
     const [midturnOverlayOpen, setMidturnOverlayOpen] = useState(false);
     const [nextTurnIsReady, setNextTurnIsReady] = useState(false);
-    const [midturnMessages, setMidturnMessages] = useState([])
-    const [lampsChoice, setLampsChoice] = useState([]);
+    const [midturnMessages, setMidturnMessages] = useState([]);
+    const [midturnLampsOffered, setMidturnLampsOffered] = useState([]);
 
     
     const maxStamina = 100;
@@ -73,6 +73,40 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     const pushTurnMessage = useCallback((message) => {
         setMidturnMessages(oldMessages => [...oldMessages, message]);
     }, []);
+
+    const unacquiredLamps = useMemo(() => {
+        if (acquiredLamps) {
+            return defaultLamps.filter(dl => !acquiredLamps?.some(al => dl.id === al.id));
+        }
+        else
+            return [];
+    }, [acquiredLamps]);
+
+    const assignLampOffers = useCallback(() => {
+        pushTurnMessage("You get to pick a NEW LAMP!");
+        let lampsYetToOffer = [...unacquiredLamps];
+
+        let lampsPicked = [];
+
+        for (let i = 0; i < 3; i++) {
+            // TODO; alter this below algorithm based on the rarity weights of every Lamp
+            let totalRandomnessWeight = lampsYetToOffer.length * 10;
+
+
+            let randomNumber = Math.floor(Math.random() * totalRandomnessWeight);
+            let chosenIndex = -1;
+            while (randomNumber >= 0) {
+                randomNumber -= 10;
+                chosenIndex++;
+            }
+            // TODO; alter this above algorithm based on the rarity weights of every Lamp
+
+            lampsPicked.push(lampsYetToOffer[chosenIndex]);
+            lampsYetToOffer.splice(chosenIndex, 1);
+        }
+
+        setMidturnLampsOffered(lampsPicked);
+    }, [unacquiredLamps, pushTurnMessage]);
 
 
     useEffect(() => {
@@ -159,6 +193,8 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         }
         
     }, [acquiredLamps]);
+
+    
 
     const applyListOfEffects = (effectList) => {
         let clonedSheet = { ...characterSheet };
@@ -300,6 +336,11 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
             }
 
+            let TESTLAMPGETTURNS = [2, 7, 21, 30, 41, 46, 50];
+            if (TESTLAMPGETTURNS.some(x => x === currentTurn)) {
+                assignLampOffers();
+            }
+
             setHoveringItem(null);
             setCurrentTurn(currentTurn + 1);
 
@@ -313,7 +354,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
             setNextTurnIsReady(true);
         }
 
-    }, [activeJobsList, allJobsList, characterSheet, checkQuota, currentQuota, currentTurn, finalizeTraining, offeredJobsList, pushTurnMessage])
+    }, [activeJobsList, allJobsList, characterSheet, checkQuota, currentQuota, currentTurn, finalizeTraining, offeredJobsList, pushTurnMessage, assignLampOffers])
 
     const beginTurnAction = useCallback((selectedItem, performAction) => {
         setNextTurnIsReady(false);
@@ -341,16 +382,29 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         </div>)
     }
 
+    
+
+    function addNewLamp(newLamp) {
+        setAcquiredLamps(oldLamps => [...oldLamps, newLamp]);
+        setMidturnLampsOffered([]);
+    }
+
+    // TODO; set turnActionTitle!
+
     return (<>
 
         <MidturnModal
             show={midturnOverlayOpen}
             setShow={setMidturnOverlayOpen}
             isLoadingNextTurn={!nextTurnIsReady}
+            turnActionTitle={null}
 
             messages={midturnMessages}
             setMessages={setMidturnMessages}
             characterImage={characterSheet?.Image}
+
+            offeredLamps={midturnLampsOffered}
+            addSelectedLamp={addNewLamp}
         />
 
         <h2>How cool are you?</h2>

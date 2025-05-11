@@ -40,7 +40,7 @@ function CreateCharacterContainer({ setBasicInformation }) {
         }
 
         if (!pronouns) {
-            alert("Pronouns are required");
+            alert("Pronouns are required. You can write 'none' if you want!");
             return;
         }
 

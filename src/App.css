@@ -226,7 +226,7 @@ h1, h2, h3, h4, h5 {
     background-color: lightskyblue;
     border-color: deepskyblue;
 
-    z-index: 1;
+    z-index: 10;
     box-shadow: rgba(0, 0, 20, 0.4) 3px 3px;
 
     position: absolute;
@@ -256,7 +256,7 @@ h1, h2, h3, h4, h5 {
     padding: 5px 0;
     box-shadow: rgba(0, 0, 20, 0.4) 3px 3px;
     position: absolute;
-    z-index: 1;
+    z-index: 10;
 }
 
 .tooltip-container:hover .tip {
@@ -322,8 +322,8 @@ h1, h2, h3, h4, h5 {
     opacity: 1;
 
     top: 20%;
-    left: 30%;
-    right: 30%;
+    left: 12%;
+    right: 12%;
     bottom: 20%;
 
     z-index: 2;
@@ -332,15 +332,33 @@ h1, h2, h3, h4, h5 {
 .midturn-modal-contents {
     position: relative;
     display: inline-block;
+    width: 90%;
 }
 
 .lamp-selector {
     height: 300px;
     width: 100%;
+    display: inline-block;
 }
 
 .lamp-choice {
     width: 150px;
     height: 150px;
-    margin: 5px;
+    margin: 10px;
+    position: relative;
+}
+
+.lamp-choice .tip {
+    min-width: 150px;
+    background-color: palegreen;
+    color: black;
+    top: 140px;
+    left: 0px;
+}
+
+.selected-lamp {
+    background-color: gold;
+    border-style: dashed;
+    border-color: gold;
+    border-width: 4px;
 }
