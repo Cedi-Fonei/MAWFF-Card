@@ -12,7 +12,6 @@ const quotaDifficulties = [6, 12, 24];
 function checkJobSuccessRate(characterSheet) {
     let baseDifficulty = quotaDifficulties[this.quotaNumber - 1];
 
-    console.log(JSON.stringify(characterSheet));
 
     let relevantAttributeValue;
     switch (this.mainAttribute) {

@@ -69,6 +69,12 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         setNextTurnIsReady(true);
     }, [name, pronouns, image]);
 
+
+    const pushTurnMessage = useCallback((message) => {
+        setMidturnMessages(oldMessages => [...oldMessages, message]);
+    }, []);
+
+
     useEffect(() => {
         if (quotas && currentTurn) {
             if (currentQuota) {
@@ -142,16 +148,6 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     const relevantSparks = useMemo(() => {
 
         if (acquiredLamps) {
-            //let ret = defaultSparks.filter(ds =>
-            //    acquiredLamps.some(al =>
-            //        al.sparksGenerated?.some(sg => sg.spark.id === ds.id)
-            //    )
-            //);
-
-            //console.log(JSON.stringify(ret));
-
-            ////defaultSparks.filter(ds => acquiredLamps.some(al => al.sparksGenerated?.some(sg => sg.spark.id === ds.id)));
-
             return defaultSparks.filter(ds =>
                 acquiredLamps.some(al =>
                     al.sparksGenerated?.some(sg => sg.spark.id === ds.id)
@@ -202,7 +198,6 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     }
 
     const attemptTraining = (trainingFacility) => {
-
         let failRate = trainingFacility.getFailureChance(stamina);
         // Returns a random integer from 1 to 100:
         let succcessRoll = Math.floor(Math.random() * 100) + 1;
@@ -210,7 +205,9 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         let isSuccess = failRate < succcessRoll;
 
         if (isSuccess) {
+            // TODO add Spark effects instead of that blank array!!!
             let unrandomizedEffects = calculateUnrandomizedTrainingEffects(trainingFacility.checkCurrentLevelEffects(), []);
+
             // TODO also add random effect modifiers... once they are implemented on facilities.
 
             applyListOfEffects(unrandomizedEffects);
@@ -221,6 +218,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
     const attemptRest = () => {
         let restVariableRoll = 30 + Math.floor(Math.random() * 21);
+        pushTurnMessage("You got a good eep and healed " + restVariableRoll + " stamina.");
         updateStamina(restVariableRoll);
     }
 
@@ -251,22 +249,16 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     };
 
 
-    //const processTurnAction = (doTurnAction) => { // TODO implement this process for cleaner turn actions/presentation
-    //    // TODO set action-blocking/animation overlay
 
-    //    doTurnAction();
+    
 
-    //    endTurn();
-
-    //    // TODO unset action-blocking/animation overlay
-    //}
-    //const beginTurnAction = useCallback((selectedItem, setAction) => { }, [])
-
-    const endTurn = () => {
+    const endTurn = useCallback(() => {
         let allowNextTurn = true;
         if (currentQuota.turnDeadline === currentTurn + 1) {
             allowNextTurn = checkQuota(currentQuota);
             if (allowNextTurn) {
+                pushTurnMessage("You met your Pollen quota this season!");
+
                 let clonedSheet = { ...characterSheet };
 
                 clonedSheet.Might += currentQuota.quotaReward.Might;
@@ -279,7 +271,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                 setCharacterSheet(clonedSheet);
             }
             else {
-                console.log("Oh DAMG you didn't get the quota I guess your training ends today I'm sowwy");
+                pushTurnMessage("Oh DAMG you didn't get the quota I guess your training ends today I'm sowwy");
             }
         }
 
@@ -310,14 +302,27 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
             setHoveringItem(null);
             setCurrentTurn(currentTurn + 1);
+
+            setNextTurnIsReady(true);
         }
 
         else {
             setHoveringItem(null);
             finalizeTraining(characterSheet);
+
+            setNextTurnIsReady(true);
         }
-        
-    }
+
+    }, [activeJobsList, allJobsList, characterSheet, checkQuota, currentQuota, currentTurn, finalizeTraining, offeredJobsList, pushTurnMessage])
+
+    const beginTurnAction = useCallback((selectedItem, performAction) => {
+        setNextTurnIsReady(false);
+        setMidturnOverlayOpen(true);
+
+        performAction(selectedItem);
+
+        endTurn();
+    }, [endTurn]);
 
     const renderSparksHints = (sparks) => { 
 
@@ -344,6 +349,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
             isLoadingNextTurn={!nextTurnIsReady}
 
             messages={midturnMessages}
+            setMessages={setMidturnMessages}
             characterImage={characterSheet?.Image}
         />
 
@@ -381,6 +387,8 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     characterStamina={stamina}
                     setHoveringItem={setHoveringItem}
                     setHoveringJob={setHoveringJob}
+                    beginTurnAction={beginTurnAction}
+                    pushTurnMessage={pushTurnMessage}
                 />
             </div>
 

@@ -1,8 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 
 import { defaultFacilitiesExercise, defaultFacilitiesStudies, defaultFacilitiesMarathon, defaultFacilitiesPhotomeditation, defaultFacilitiesPreening } from '../../utility/trainingActivities';
 
-function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet, characterStamina, setHoveringItem, setHoveringJob }) { 
+function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet, characterStamina, setHoveringItem, setHoveringJob, beginTurnAction, pushTurnMessage }) { 
 
     const [trainingFacilities, setTrainingFacilities] = useState([]);
 
@@ -22,33 +22,42 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
         reset();
     }, [isOpen])
 
-    const applyTraining = (trainingFacility, index) => {
+    
+    const applyTraining = useCallback(({ trainingFacility, index }) => {
+
         var trainingSuccess = attemptTraining(trainingFacility);
 
         if (trainingSuccess) {
+            pushTurnMessage("The training was a success!");
+
+            let facilityOldLevel = trainingFacility.level
+            
             trainingFacility.giveTrainingExp(baseExpGain);
-
             trainingFacility.checkTrainingLevelup();
-
             let facilitiesForSet = [...trainingFacilities];
+
+            if (facilitiesForSet[index].level > facilityOldLevel) {
+                pushTurnMessage("The facility leveled up!");
+            }
             facilitiesForSet[index] = trainingFacility;
             setTrainingFacilities(facilitiesForSet);
         }
         else {
-            console.log("Oh ouchie you got a booboo D:")
+            pushTurnMessage("Oh ouchie you got a booboo D:");
         }
 
-        endTurn();
-    }
+    }, [attemptTraining, trainingFacilities, pushTurnMessage]);
 
-    const applyRest = () => {
-        attemptRest();
+    const commitToTrainingAction = useCallback((trainingFacility, index) => {
+        beginTurnAction({ trainingFacility, index }, applyTraining);
+    }, [applyTraining, beginTurnAction]);
 
-        endTurn();
-    }
+    const commitToRestAction = useCallback(() => {
+        beginTurnAction(null, attemptRest);
+    }, [attemptRest, beginTurnAction])
 
     const renderTrainingFacility = (trainingFacility, index) => {
-        return (<button key={index} onClick={() => applyTraining(trainingFacility, index)}
+        return (<button key={index} onClick={() => commitToTrainingAction(trainingFacility, index)}
             className="training-facility-selectable"
             onMouseOver={() => setHoveringItem(trainingFacility)}
             onMouseOut={() => setHoveringItem(null)}
@@ -67,24 +76,28 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
     }
 
     const renderRestFacility = () => {
-        return (<button className="training-facility-selectable" onClick={() => applyRest()}>
+        return (<button className="training-facility-selectable" onClick={() => commitToRestAction()}>
             <span className="kh-menu"><b><i>Rest</i></b></span>
         </button>)
     }
 
-    const applyJob = (job, index) => {
+    const applyJob = useCallback(({ job, index }) => {
         let successRate = job.checkJobSuccessRate(characterSheet);
 
         let randomCheck = Math.floor(Math.random() * 100) + 1;
         if (successRate >= randomCheck) {
+            pushTurnMessage("You did the job!!!! Good for you!!!");
             giveJobReward(job, index);
         }
         else {
-            console.log("Ooch ouchie the job GOT YOU");
+            pushTurnMessage("Ooch ouchie the job GOT YOU");
         }
 
-        endTurn();
-    }
+    }, [characterSheet, giveJobReward, pushTurnMessage])
+
+    const commitToJobAction = useCallback((job, index) => {
+        beginTurnAction({ job, index }, applyJob);
+    }, [applyJob, beginTurnAction])
 
     const renderJob = (job, index) => {
         if (!job) {
@@ -92,7 +105,7 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
         }
 
         return (<button className="wide-button"
-            onClick={() => applyJob(job, index)}
+            onClick={() => commitToJobAction(job, index)}
             onMouseOver={() => setHoveringJob(job)}
             onMouseOut={() => setHoveringJob(null)}
         >
@@ -135,21 +148,8 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
         </div>}
 
         
-
-        
-        
     </>)
 
 }
-
-//{
-//    trainingFacilities.length &&
-
-//    <div>
-//        <p>TODO training activity panel!</p>
-//        {trainingFacilities.map((tf, index) => renderTrainingFacility(tf, index))}
-//    </div>
-
-//}
 
 export default TrainingActivityPanel;

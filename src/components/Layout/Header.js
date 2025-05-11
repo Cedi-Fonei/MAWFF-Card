@@ -15,7 +15,8 @@ export default function Header() {
                         <div className="tip">
                             <ul>
                                 <li>Added various tooltips. Like this one!</li>
-                                {/*<li>Added Lamp and Spark mechanics, giving your training various passive modifiers you acquire at random! Use them carefully!</li>*/}
+                                <li>Added turn results overlay with message feedback!</li>
+                                {/*<li>Added Lamp and Spark mechanics, giving your training various passive modifiers you build during a run! Use them wisely!</li>*/}
                             </ul>
                         </div>
                     </div>

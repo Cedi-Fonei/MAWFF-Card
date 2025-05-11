@@ -1,18 +1,15 @@
 import { useEffect, useCallback } from "react";
 
 
-function MidturnModal({ show, setShow, isLoadingNextTurn, turnActionTitle, messages, thisTurnChanges, characterImage, offeredLamps }) {
+function MidturnModal({ show, setShow, isLoadingNextTurn, turnActionTitle, messages, setMessages, thisTurnChanges, characterImage, offeredLamps }) {
 
-    //useEffect(() => {
-    //    console.log(show + ", " + isLoadingNextTurn)
-
-    //}, [show, isLoadingNextTurn])
-    //const onSelectOfferedLamp = useCallback((thisLamp) => {
-    //    alert(JSON.stringify(thisLamp));
-    //}, []);
+    function proceedToNextTurn() {
+        setShow(false);
+        setMessages([]);
+    }
 
     return (show &&
-    <div className="midturn-modal-dimbackground">
+    <div className="midturn-modal-dimbackground" onClick={() => { if (!isLoadingNextTurn) proceedToNextTurn(); } }>
         <div className="midturn-modal">
                 <div className="midturn-modal-contents">
                     {turnActionTitle ? <h3>Woah a test modal wowwww</h3> : <h3>Turn Results</h3>}
@@ -41,7 +38,7 @@ function MidturnModal({ show, setShow, isLoadingNextTurn, turnActionTitle, messa
                     
                 </div>
                 <div className="position-absolute absolute-bottom justify-content-center">
-                    <button onClick={() => setShow(false)} disabled={isLoadingNextTurn}
+                    <button onClick={() => proceedToNextTurn()} disabled={isLoadingNextTurn}
                         style={{margin: "1rem"}}>
                         Continue
                     </button>
