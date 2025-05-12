@@ -13,11 +13,34 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
 
     const commitToRestAction = useCallback(() => {
         beginTurnAction(null, attemptRest);
-    }, [attemptRest, beginTurnAction])
+    }, [attemptRest, beginTurnAction]);
+
+
+
+    const renderSparksPopup = (sparks) => {
+        if (sparks?.length) {
+            let groupedSparks = Object.groupBy(sparks, (s) => s.id);
+
+            return (<div className="tip">
+                {/*<div className="vstack gap-1">*/}
+                {/*    TODO GROUP EFFECT MATH*/}
+                {/*</div>*/}
+                <hr />
+                <div className="vstack gap-1">
+                    {Object.values(groupedSparks).map((gs, index) => <div key={index}>{gs[0].name} x{gs.length}</div>)}
+                </div>
+            </div>);
+        }
+        else {
+            return null;
+        }
+    }
+
+
 
     const renderTrainingFacility = (trainingFacility, index) => {
         return (<button key={index} onClick={() => commitToTrainingAction(trainingFacility, index)}
-            className="training-facility-selectable"
+            className="training-facility-selectable tooltip-container"
             onMouseOver={() => setHoveringItem(trainingFacility)}
             onMouseOut={() => setHoveringItem(null)}
         >
@@ -30,7 +53,8 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
                 <span>Success: {(100 - trainingFacility.getFailureChance(characterStamina))}%</span>
 
                 <span>Total Sparks: {trainingFacility.sparks.length}</span>
-                
+
+                {renderSparksPopup(trainingFacility.sparks)}
             </div>
         </button>)
 

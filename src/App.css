@@ -32,21 +32,6 @@ h1, h2, h3, h4, h5 {
   }
 }*/
 
-/*.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}*/
-
-/*.App-link {
-  color: #61dafb;
-}*/
-
 /*@keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -56,10 +41,6 @@ h1, h2, h3, h4, h5 {
   }
 }*/
 
-/*.text-warning {
-    color: red;
-    background-color: yellow;
-}*/
 .absolute-bottom {
     bottom: 0;
 }
@@ -102,6 +83,14 @@ h1, h2, h3, h4, h5 {
     border: 2px ridge;
     display: inline;
     margin: 2rem;
+}
+
+.training-facility-selectable .tip {
+    min-width: 220px;
+    background-color: palegreen;
+    color: black;
+    top: 140px;
+    left: 0px;
 }
 
 .mawff-card {
