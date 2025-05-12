@@ -5,6 +5,7 @@ import { makeStartingCharacterSheet } from '../../utility/characterSheets';
 import { NewJobTurns, makeQuotas, makeJobs } from '../../utility/scenarioMechanics';
 import { calculateUnrandomizedTrainingEffects } from '../../utility/trainingModifiers';
 import { defaultLamps, defaultSparks } from '../../utility/lamps';
+import { defaultFacilitiesExercise, defaultFacilitiesStudies, defaultFacilitiesMarathon, defaultFacilitiesPhotomeditation, defaultFacilitiesPreening } from '../../utility/trainingActivities';
 
 import TrainingActivityPanel from './TrainingActivityPanel'
 import MAWFFCard from "../PlayerCard/MAWFFCard";
@@ -22,6 +23,8 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     const [currentTurn, setCurrentTurn] = useState(null);
     const [quotas, setQuotas] = useState(null);
     const [currentQuota, setCurrentQuota] = useState(null);
+
+    const [trainingFacilities, setTrainingFacilities] = useState([]);
 
     const [allJobsList, setAllJobsList] = useState(null);
     const [activeJobsList, setActiveJobsList] = useState(null);
@@ -42,6 +45,9 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     const maxStamina = 100;
     const baseStamina = 100;
     const basePollen = 0;
+
+    const baseExpGain = 10;
+
 
     const reset = useCallback(() => {
         setCharacterSheet(makeStartingCharacterSheet(name, pronouns, image));
@@ -64,6 +70,14 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
         setHoveringItem(null);
         setHoveringJob(null);
+
+        setTrainingFacilities([
+            defaultFacilitiesExercise,
+            defaultFacilitiesStudies,
+            defaultFacilitiesMarathon,
+            defaultFacilitiesPhotomeditation,
+            defaultFacilitiesPreening
+        ]);
 
         setMidturnOverlayOpen(false);
         setNextTurnIsReady(true);
@@ -136,7 +150,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
             setHoveringEffects(null);
     }, [hoveringItem, hoveringJob]);
 
-    const updateStamina = (staminaChange) => {
+    const updateStamina = useCallback((staminaChange) => {
         if (staminaChange + stamina > maxStamina) {
             setStamina(maxStamina);
         }
@@ -146,7 +160,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         else {
             setStamina(stamina + staminaChange);
         }
-    };
+    }, [stamina]);
 
     const nullifyTrainingScenario = () => {
         setCharacterSheet(null);
@@ -196,7 +210,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
     
 
-    const applyListOfEffects = (effectList) => {
+    const applyListOfEffects = useCallback((effectList) => {
         let clonedSheet = { ...characterSheet };
 
         effectList.forEach((e) => {
@@ -231,9 +245,9 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         });
 
         setCharacterSheet(clonedSheet);
-    }
+    }, [characterSheet, pollen, updateStamina])
 
-    const attemptTraining = (trainingFacility) => {
+    const attemptTraining = useCallback((trainingFacility) => {
         let failRate = trainingFacility.getFailureChance(stamina);
         // Returns a random integer from 1 to 100:
         let succcessRoll = Math.floor(Math.random() * 100) + 1;
@@ -250,7 +264,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         }
 
         return isSuccess;
-    };
+    }, [applyListOfEffects, stamina]);
 
     const attemptRest = () => {
         let restVariableRoll = 30 + Math.floor(Math.random() * 21);
@@ -277,6 +291,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         let clonedActivejobs = [...activeJobsList];
 
         while (clonedJobIndex < clonedActivejobs.length) { // Move all jobs one space up the list, deleting the job that was successful. The last slot will be empty.
+            // TODO - rework job deletion logic so that Jobs expire after X days, to reduce cheese tactics.
             clonedActivejobs[clonedJobIndex] = (clonedJobIndex + 1 <= clonedActivejobs.length) ? clonedActivejobs[clonedJobIndex + 1] : null
             clonedJobIndex++;
         }
@@ -285,6 +300,58 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
     };
 
 
+
+
+    const decaySparksOnFacilities = useCallback(() => {
+        let clonedFacilities = [...trainingFacilities];
+
+        clonedFacilities.forEach((facility) => {
+            if (facility.sparks.length) {
+                let randomSparkIndex = Math.floor(Math.random() * facility.sparks.length);
+
+                facility.sparks.splice(randomSparkIndex, 1);
+            }
+
+        });
+
+        setTrainingFacilities(clonedFacilities);
+    }, [trainingFacilities]);
+
+    const generateNewSparkPool = useCallback(() => {
+        let ret = [];
+
+        trainingFacilities.forEach((facility) => ret = ret.concat(facility.sparks));
+
+        acquiredLamps.forEach((lamp) => {
+            // TODO! Add conditional proc check to all lamps before iterating through them or allowing them to add sparks!
+
+            lamp.sparksGenerated.forEach((sg) => {
+                for (let i = 0; i < sg.quantity; i++)
+                    ret.push(sg.spark);
+            });
+        });
+
+        return ret;
+    }, [acquiredLamps, trainingFacilities]);
+
+    const redistributeSparks = useCallback(() => {
+        let totalSparkPool = generateNewSparkPool();
+
+        let clonedFacilities = [...trainingFacilities];
+        clonedFacilities.forEach((cf) => cf.sparks = []);
+
+        totalSparkPool.forEach((spark) => {
+            let randomFacilityIndex = Math.floor(Math.random() * clonedFacilities.length);
+            clonedFacilities[randomFacilityIndex].sparks.push(spark);
+        });
+
+        setTrainingFacilities(clonedFacilities);
+    }, [generateNewSparkPool, trainingFacilities])
+
+    const updateSparksForNextTurn = useCallback(() => {
+        decaySparksOnFacilities();
+        redistributeSparks();
+    }, [decaySparksOnFacilities, redistributeSparks]);
 
     
 
@@ -342,6 +409,9 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
             }
 
             setHoveringItem(null);
+
+            updateSparksForNextTurn(); // NOTE; can we relocate spark updates to AFTER we acquire a new lamp for the turn, so that the new lamp immediately activates?
+
             setCurrentTurn(currentTurn + 1);
 
             setNextTurnIsReady(true);
@@ -354,7 +424,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
             setNextTurnIsReady(true);
         }
 
-    }, [activeJobsList, allJobsList, characterSheet, checkQuota, currentQuota, currentTurn, finalizeTraining, offeredJobsList, pushTurnMessage, assignLampOffers])
+    }, [currentQuota, currentTurn, checkQuota, pushTurnMessage, characterSheet, updateSparksForNextTurn, allJobsList, offeredJobsList, activeJobsList, assignLampOffers, finalizeTraining])
 
     const beginTurnAction = useCallback((selectedItem, performAction) => {
         setNextTurnIsReady(false);
@@ -388,6 +458,34 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         setAcquiredLamps(oldLamps => [...oldLamps, newLamp]);
         setMidturnLampsOffered([]);
     }
+
+    const applyTraining = useCallback(({ trainingFacility, index }) => {
+
+        var trainingSuccess = attemptTraining(trainingFacility);
+
+        if (trainingSuccess) {
+            pushTurnMessage("The training was a success!");
+
+            let facilityOldLevel = trainingFacility.level;
+
+
+            trainingFacility.giveTrainingExp(baseExpGain);
+            trainingFacility.checkTrainingLevelup();
+            trainingFacility.sparks = [];
+
+            let facilitiesForSet = [...trainingFacilities];
+
+            if (facilitiesForSet[index].level > facilityOldLevel) {
+                pushTurnMessage("The facility leveled up!");
+            }
+            facilitiesForSet[index] = trainingFacility;
+            setTrainingFacilities(facilitiesForSet);
+        }
+        else {
+            pushTurnMessage("Oh ouchie you got a booboo D:");
+        }
+
+    }, [attemptTraining, trainingFacilities, pushTurnMessage]);
 
     // TODO; set turnActionTitle!
 
@@ -443,6 +541,9 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
                     setHoveringJob={setHoveringJob}
                     beginTurnAction={beginTurnAction}
                     pushTurnMessage={pushTurnMessage}
+
+                    trainingFacilities={trainingFacilities}
+                    applyTraining={applyTraining}
                 />
             </div>
 

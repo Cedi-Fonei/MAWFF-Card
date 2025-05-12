@@ -101,6 +101,7 @@ export const defaultFacilitiesExercise = {
     level: 1,
     expToLevel: 20,
     exp: 0,
+    sparks: [],
 
     checkTrainingLevelup: checkTrainingLevelup,
     giveTrainingExp: giveTrainingExp,
@@ -167,6 +168,7 @@ export const defaultFacilitiesStudies = {
     level: 1,
     expToLevel: 20,
     exp: 0,
+    sparks: [],
 
     checkTrainingLevelup: checkTrainingLevelup,
     giveTrainingExp: giveTrainingExp,
@@ -233,6 +235,7 @@ export const defaultFacilitiesMarathon = {
     level: 1,
     expToLevel: 20,
     exp: 0,
+    sparks: [],
 
     checkTrainingLevelup: checkTrainingLevelup,
     giveTrainingExp: giveTrainingExp,
@@ -299,6 +302,7 @@ export const defaultFacilitiesPhotomeditation = {
     level: 1,
     expToLevel: 20,
     exp: 0,
+    sparks: [],
 
     checkTrainingLevelup: checkTrainingLevelup,
     giveTrainingExp: giveTrainingExp,
@@ -365,6 +369,7 @@ export const defaultFacilitiesPreening = {
     level: 1,
     expToLevel: 20,
     exp: 0,
+    sparks: [],
 
     checkTrainingLevelup: checkTrainingLevelup,
     giveTrainingExp: giveTrainingExp,

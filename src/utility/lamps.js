@@ -163,6 +163,27 @@ export const defaultSparks = [
 ]
 
 
+function timingProcCheck() { 
+    if (this.timing === LampProcTiming.Every_Turn || null || undefined) {
+        return true;
+    }
+
+    return false;
+}
+
+function conditionProcCheck() {
+    if (this.condition === LampProcCondition.No_Condition || null || undefined) {
+        return true;
+    }
+
+    return false;
+}
+
+function mayThisLampProc() {
+    return (timingProcCheck() && conditionProcCheck());
+}
+
+
 
 export const defaultLamps = [
 

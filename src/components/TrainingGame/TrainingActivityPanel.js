@@ -1,52 +1,11 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 
-import { defaultFacilitiesExercise, defaultFacilitiesStudies, defaultFacilitiesMarathon, defaultFacilitiesPhotomeditation, defaultFacilitiesPreening } from '../../utility/trainingActivities';
 
-function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet, characterStamina, setHoveringItem, setHoveringJob, beginTurnAction, pushTurnMessage }) { 
-
-    const [trainingFacilities, setTrainingFacilities] = useState([]);
-
-    const baseExpGain = 10;
-
-    const reset = () => {
-        setTrainingFacilities([
-            defaultFacilitiesExercise,
-            defaultFacilitiesStudies,
-            defaultFacilitiesMarathon,
-            defaultFacilitiesPhotomeditation,
-            defaultFacilitiesPreening
-        ]);
-    }
-
-    useEffect(() => {
-        reset();
-    }, [isOpen])
+function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, isOpen, jobs, endTurn, characterSheet, characterStamina, setHoveringItem, setHoveringJob, beginTurnAction, pushTurnMessage, trainingFacilities, applyTraining }) { 
 
     
-    const applyTraining = useCallback(({ trainingFacility, index }) => {
 
-        var trainingSuccess = attemptTraining(trainingFacility);
-
-        if (trainingSuccess) {
-            pushTurnMessage("The training was a success!");
-
-            let facilityOldLevel = trainingFacility.level
-            
-            trainingFacility.giveTrainingExp(baseExpGain);
-            trainingFacility.checkTrainingLevelup();
-            let facilitiesForSet = [...trainingFacilities];
-
-            if (facilitiesForSet[index].level > facilityOldLevel) {
-                pushTurnMessage("The facility leveled up!");
-            }
-            facilitiesForSet[index] = trainingFacility;
-            setTrainingFacilities(facilitiesForSet);
-        }
-        else {
-            pushTurnMessage("Oh ouchie you got a booboo D:");
-        }
-
-    }, [attemptTraining, trainingFacilities, pushTurnMessage]);
+    
 
     const commitToTrainingAction = useCallback((trainingFacility, index) => {
         beginTurnAction({ trainingFacility, index }, applyTraining);
@@ -69,6 +28,8 @@ function TrainingActivityPanel({ attemptTraining, attemptRest, giveJobReward, is
                 {trainingFacility.level === 5 ? <span>MAX</span> : <progress value={trainingFacility.exp} max={trainingFacility.expToLevel} />}
 
                 <span>Success: {(100 - trainingFacility.getFailureChance(characterStamina))}%</span>
+
+                <span>Total Sparks: {trainingFacility.sparks.length}</span>
                 
             </div>
         </button>)
