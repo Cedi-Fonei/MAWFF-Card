@@ -1,24 +1,21 @@
 import { SparkEffectScaling } from './enums';
 
-// TODO this new file is my current priority. I want to refactor the processes for calculating training effects in a way that reliably and 
-
 export function calculateUnrandomizedTrainingEffects(baseEffectsList, modifiersList) {
-    let clonedEffectsList = [...baseEffectsList];
+    let clonedEffectsList = structuredClone(baseEffectsList);
     let modifiedEffectList = [];
 
     if (modifiersList?.length) {
-        modifiersList?.filter(mod => mod.scaling === SparkEffectScaling.Flat)?.forEach((mod) => {
+        modifiersList?.filter(mod => mod.effectScaling === SparkEffectScaling.Flat)?.forEach((mod) => {
 
-            let thisEffect = mod.effect;
+            let thisEffect = mod.effectType;
 
             let relevantBaseEffectIndex = clonedEffectsList.findIndex(ce => ce.effect === thisEffect);
-            if (relevantBaseEffectIndex) {
+            if (relevantBaseEffectIndex && relevantBaseEffectIndex >= 0) {
                 let relevantBaseEffect = clonedEffectsList[relevantBaseEffectIndex];
-                relevantBaseEffect.value += mod.value;
-                clonedEffectsList[relevantBaseEffectIndex] = relevantBaseEffect
+                relevantBaseEffect.value += mod.effectValue;
             }
             else {
-                clonedEffectsList.push({ effect: mod.effect, value: mod.value });
+                clonedEffectsList.push({ effect: mod.effectType, value: mod.effectValue });
             }
 
         });
@@ -26,13 +23,13 @@ export function calculateUnrandomizedTrainingEffects(baseEffectsList, modifiersL
 
     if (clonedEffectsList?.length) {
         clonedEffectsList.forEach((e) => {
-            let relevantPercentageEffects = modifiersList.filter(mod => mod.scaling === SparkEffectScaling.Percentage && mod.effect === e.effect);
+            let relevantPercentageEffects = modifiersList.filter(mod => mod.effectScaling === SparkEffectScaling.Percentage && mod.effectType === e.effect);
 
             if (relevantPercentageEffects?.length) {
                 let percentageTotal = 0;
 
-                relevantPercentageEffects?.forEach(({ mod }) => {
-                    percentageTotal += mod.value;
+                relevantPercentageEffects?.forEach((mod) => {
+                    percentageTotal += mod.effectValue;
                 });
 
                 let percentageBasedIncrease = Math.floor(e.value * (percentageTotal / 100));
@@ -47,7 +44,7 @@ export function calculateUnrandomizedTrainingEffects(baseEffectsList, modifiersL
     }
 
     return modifiedEffectList;
-};
+}
 
 export function calculateRandomizedTrainingEffects(baseEffectsList, modifiersList) {
     // TODO in the future, this will be used

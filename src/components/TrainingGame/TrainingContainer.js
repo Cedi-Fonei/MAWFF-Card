@@ -63,9 +63,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         setOfferedJobsList([]);
 
         //setAcquiredLamps([defaultLamps[0], defaultLamps[0], defaultLamps[1], defaultLamps[6], defaultLamps[8]]);
-        //setAcquiredLamps([defaultLamps[0], defaultLamps[0], defaultLamps[1], defaultLamps[6], defaultLamps[8],
-        //    defaultLamps[3], defaultLamps[4], defaultLamps[5], defaultLamps[7], defaultLamps[9], defaultLamps[2]
-        //]); // TESTING LAMP BEHAVIOR
+        // test lamps by force setting them above
         setAcquiredLamps([]);
 
         setHoveringItem(null);
@@ -143,7 +141,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
     useEffect(() => {
         if (hoveringItem)
-            setHoveringEffects(calculateUnrandomizedTrainingEffects(hoveringItem.checkCurrentLevelEffects(), []));
+            setHoveringEffects(hoveringItem.getCurrentBaseEffect());
         else if (hoveringJob)
             setHoveringEffects(calculateUnrandomizedTrainingEffects(hoveringJob.successRewards, []));
         else
@@ -255,11 +253,8 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         let isSuccess = failRate < succcessRoll;
 
         if (isSuccess) {
-            // TODO add Spark effects instead of that blank array!!!
-            let unrandomizedEffects = calculateUnrandomizedTrainingEffects(trainingFacility.checkCurrentLevelEffects(), []);
-
+            let unrandomizedEffects = trainingFacility.getCurrentBaseEffect();
             // TODO also add random effect modifiers... once they are implemented on facilities.
-
             applyListOfEffects(unrandomizedEffects);
         }
 

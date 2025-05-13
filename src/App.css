@@ -286,7 +286,8 @@ h1, h2, h3, h4, h5 {
 }
 
 .whats-new-tag .tip {
-    min-width: 200px;
+    min-width: 400px;
+    left: -100px;
     background-color: lightgrey;
     color: black;
 }

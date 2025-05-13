@@ -1,4 +1,5 @@
 import { TrainingEffectEnums } from './enums';
+import { calculateUnrandomizedTrainingEffects } from './trainingModifiers';
 
 function checkTrainingLevelup() {
     if (this.level < 5 && this.exp >= this.expToLevel) {
@@ -17,14 +18,37 @@ function giveTrainingExp(expGain) {
     
 };
 
+function getAllUnrandomizedSparkModifiers() {
+    let ret = [];
+
+    this?.sparks.forEach((spark) => {
+        ret.push({
+            effectValue: spark.effect,
+            effectType: spark.effectType,
+            effectScaling: spark.effectScaling
+        });
+    });
+
+    return ret; 
+};
+
+
 function checkCurrentLevelEffects() {
     return this.trainingChanges.find(tc => tc.level === this.level).effects;
 };
 
-function getFailureChance(stamina) {
-    let thisStaminaChangeValue = this.checkCurrentLevelEffects().find(e => e.effect === TrainingEffectEnums.StaminaChange).value;
 
-    if (thisStaminaChangeValue >= 0) {
+function getCurrentBaseEffect() {
+    let levelEffects = this.checkCurrentLevelEffects();
+    let sparkMods = this.getAllUnrandomizedSparkModifiers();
+
+    return calculateUnrandomizedTrainingEffects(levelEffects, sparkMods);
+}
+
+function getFailureChance(stamina) {
+    let thisStaminaChangeValue = this.getCurrentBaseEffect().find(e => e.effect === TrainingEffectEnums.StaminaChange)?.value;
+
+    if (!thisStaminaChangeValue || thisStaminaChangeValue >= 0) {
         return 0;
     }
 
@@ -106,6 +130,8 @@ export const defaultFacilitiesExercise = {
     checkTrainingLevelup: checkTrainingLevelup,
     giveTrainingExp: giveTrainingExp,
     checkCurrentLevelEffects,
+    getAllUnrandomizedSparkModifiers,
+    getCurrentBaseEffect,
     getFailureChance: getFailureChance
 }
 
@@ -173,6 +199,8 @@ export const defaultFacilitiesStudies = {
     checkTrainingLevelup: checkTrainingLevelup,
     giveTrainingExp: giveTrainingExp,
     checkCurrentLevelEffects,
+    getAllUnrandomizedSparkModifiers,
+    getCurrentBaseEffect,
     getFailureChance: getFailureChance
 }
 
@@ -240,6 +268,8 @@ export const defaultFacilitiesMarathon = {
     checkTrainingLevelup: checkTrainingLevelup,
     giveTrainingExp: giveTrainingExp,
     checkCurrentLevelEffects,
+    getAllUnrandomizedSparkModifiers,
+    getCurrentBaseEffect,
     getFailureChance: getFailureChance
 }
 
@@ -307,6 +337,8 @@ export const defaultFacilitiesPhotomeditation = {
     checkTrainingLevelup: checkTrainingLevelup,
     giveTrainingExp: giveTrainingExp,
     checkCurrentLevelEffects,
+    getAllUnrandomizedSparkModifiers,
+    getCurrentBaseEffect,
     getFailureChance: getFailureChance
 }
 
@@ -374,5 +406,7 @@ export const defaultFacilitiesPreening = {
     checkTrainingLevelup: checkTrainingLevelup,
     giveTrainingExp: giveTrainingExp,
     checkCurrentLevelEffects,
+    getAllUnrandomizedSparkModifiers,
+    getCurrentBaseEffect,
     getFailureChance: getFailureChance
 }

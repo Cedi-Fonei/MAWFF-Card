@@ -17,7 +17,7 @@ export default function Header() {
                             <ul>
                                 <li>Added various tooltips. Like this one!</li>
                                 <li>Added turn results overlay with message feedback!</li>
-                                {/*<li>Added Lamp and Spark mechanics, giving your training various passive modifiers you build during a run! Use them wisely!</li>*/}
+                                <li>Added Lamp and Spark mechanics, giving your training various passive modifiers you build during a run! Use them wisely!</li>
                             </ul>
                         </div>
                     </div>
