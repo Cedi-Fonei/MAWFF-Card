@@ -9,15 +9,15 @@ export default function Header() {
 
                 {/*NOTE always update this before AND after deploying to gh-pages!*/}
                 <div className="col-xl-4">
-                    {/*<div>Last Updated: April 22nd 2025</div>*/}
-                    <div>Last Updated: Developing update for May 2025...</div>
+                    <div>Last Updated: May 18th 2025</div>
+                    {/*<div>Last Updated: Developing update for May 2025...</div>*/}
                     <div className="whats-new-tag tooltip-container">
                         What's New?
                         <div className="tip">
                             <ul>
-                                <li>Added various tooltips. Like this one!</li>
-                                <li>Added turn results overlay with message feedback!</li>
-                                <li>Added Lamp and Spark mechanics, giving your training various passive modifiers you build during a run! Use them wisely!</li>
+                                <li>Added various tooltips. Like this one! And also a bunch to show what each training/job does!</li>
+                                <li>Added turn results overlay with message feedback! Sometimes you get a treat! And the treat is-</li>
+                                <li>Added Lamp and Spark mechanics, giving your training various passive modifiers you gain during a run! Use them wisely!</li>
                             </ul>
                         </div>
                     </div>

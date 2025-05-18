@@ -10,7 +10,7 @@ export function calculateUnrandomizedTrainingEffects(baseEffectsList, modifiersL
             let thisEffect = mod.effectType;
 
             let relevantBaseEffectIndex = clonedEffectsList.findIndex(ce => ce.effect === thisEffect);
-            if (relevantBaseEffectIndex && relevantBaseEffectIndex >= 0) {
+            if (relevantBaseEffectIndex >= 0) {
                 let relevantBaseEffect = clonedEffectsList[relevantBaseEffectIndex];
                 relevantBaseEffect.value += mod.effectValue;
             }

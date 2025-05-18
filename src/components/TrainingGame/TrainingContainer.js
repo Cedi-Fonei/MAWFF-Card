@@ -62,7 +62,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         setActiveJobsList([null, null, null]);
         setOfferedJobsList([]);
 
-        //setAcquiredLamps([defaultLamps[0], defaultLamps[0], defaultLamps[1], defaultLamps[6], defaultLamps[8]]);
+        //setAcquiredLamps([defaultLamps[0], defaultLamps[10], defaultLamps[11]]);
         // test lamps by force setting them above
         setAcquiredLamps([]);
 
@@ -158,7 +158,6 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
             setHoveringEffects(null);
     }, [hoveringItem, hoveringJob]);
 
-    // TODO BUG - I think there may be some bug with calculating stamina changes using the Shining Droplet? Test that lamp before deploying
     const updateStamina = useCallback((staminaChange) => {
         if (staminaChange + stamina > maxStamina) {
             setStamina(maxStamina);
@@ -265,7 +264,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
 
         if (isSuccess) {
             let unrandomizedEffects = trainingFacility.getCurrentBaseEffect();
-            // TODO also add random effect modifiers... once they are implemented on facilities.
+
             applyListOfEffects(unrandomizedEffects);
         }
 

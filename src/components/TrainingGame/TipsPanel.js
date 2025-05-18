@@ -9,7 +9,7 @@ function TipsPanel() {
         /*1*/ "Training facilties level up as you keep using them! They have a max level of 5!",
         /*2*/ "Most training costs Stamina! The more you tire yourself out, the higher the chances your training fails!",
         /*3*/ "If you make your Pollen quota every 20 turns, you get a bunch of bonus stats! But if you fail the quota, your training ends!",
-        /*4*/ "You can work jobs for lots of Pollen and some stats to boot, but they're hard! You'll need a good stat and trainee rank to handle them...",
+        /*4*/ "You can work jobs for lots of Pollen and some stats to boot, but they're hard! You'll need a good stat and trainee rank to handle them more easily...",
         // ^ Latest real mechanics explanation.
         // v New mechanics below!
         /*5*/ "Every so often, you'll get Lamps. Lamps create Sparks that buff your training!",
