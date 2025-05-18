@@ -9,3 +9,6 @@ export { default as laser_burst_green } from './laser_burst_green.svg'
 export { default as laser_burst_purple } from './laser_burst_purple.svg'
 export { default as laser_burst_red } from './laser_burst_red.svg'
 export { default as laser_burst_yellow } from './laser_burst_yellow.svg'
+
+export { default as pollen_tuft } from './pollen_tuft.svg'
+export { default as shining_droplet } from './shining_droplet.svg'

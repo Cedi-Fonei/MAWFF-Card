@@ -12,9 +12,10 @@ function ResultsContainer({ name, pronouns, image, characterSheet }) {
                 <button onClick={() => window.location.reload()}>Click here if you want to restart</button>
                 <p>Some near-future todos I wanna implement include;</p>
                 <ul>
-                    <li>Gradually making everything prettier</li>
-                    <li>Random training modifiers</li>
-                    <li>... and more!!!</li>
+                    <li>Improving visual responsiveness and how the app presents on smaller desktop screens</li>
+                    <li>More Lamps! More Sparks!! More ways they work!!!</li>
+                    <li>Some behind the scenes stuff you'll never see but you'll FEEL the app working better</li>
+                    <li>... and more!</li>
                 </ul>
             </div>
 

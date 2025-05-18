@@ -10,3 +10,8 @@ export { default as light_bulb_purple } from './light_bulb_purple.svg'
 export { default as light_bulb_red } from './light_bulb_red.svg'
 export { default as light_bulb_yellow } from './light_bulb_yellow.svg'
 
+export { default as blossoming_flower } from './blossoming_flower.svg'
+export { default as shining_spring } from './shining_spring.svg'
+export { default as bismoth_mirror } from './bismoth_mirror.svg'
+export { default as resplendent_core } from './resplendent_core.svg'
+export { default as designer_lighter } from './designer_lighter.svg'

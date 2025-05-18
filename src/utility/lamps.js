@@ -2,13 +2,14 @@ import { TrainingEffectEnums, SparkDecayPriority, SparkEffectScaling, SparkPlace
 
 import {
     candle_light_blue, candle_light_green, candle_light_purple, candle_light_red, candle_light_yellow,
-    light_bulb_blue, light_bulb_green, light_bulb_purple, light_bulb_red, light_bulb_yellow
+    light_bulb_blue, light_bulb_green, light_bulb_purple, light_bulb_red, light_bulb_yellow,
+    blossoming_flower, shining_spring, bismoth_mirror, resplendent_core, designer_lighter
 } from '../images/Lamps';
 
 import {
     candlebright_blue, candlebright_green, candlebright_purple, candlebright_red, candlebright_yellow,
-    laser_burst_blue, laser_burst_green, laser_burst_purple, laser_burst_red, laser_burst_yellow
-
+    laser_burst_blue, laser_burst_green, laser_burst_purple, laser_burst_red, laser_burst_yellow,
+    pollen_tuft, shining_droplet
 } from '../images/Sparks';
 
 
@@ -142,24 +143,63 @@ const sparks_dightEmber = {
     decayPriority: SparkDecayPriority.Standard,
     placementLogic: SparkPlacementLogic.Random
 }
+const sparks_pollenTuft = {
+    id: 11,
+    name: "Pollen Tuft",
+    icon: pollen_tuft,
+    description: "Gain 50 Pollen",
+
+    effect: 50,
+    effectType: TrainingEffectEnums.Pollen,
+    effectScaling: SparkEffectScaling.Flat,
+
+    decayPriority: SparkDecayPriority.Standard,
+    placementLogic: SparkPlacementLogic.Random
+}
+const sparks_shiningDroplet = {
+    id: 12,
+    name: "Shining Droplet",
+    icon: shining_droplet,
+    description: "Gain 10 Stamina",
+
+    effect: 10,
+    effectType: TrainingEffectEnums.StaminaChange,
+    effectScaling: SparkEffectScaling.Flat,
+
+    decayPriority: SparkDecayPriority.Standard,
+    placementLogic: SparkPlacementLogic.Random
+}
+
+
+
+
+const TEMPLATESPARK = {
+    id: null,
+    name: "",
+    icon: null,
+    description: "",
+
+    effect: null,
+    effectType: null,
+    effectScaling: SparkEffectScaling.Flat,
+
+    decayPriority: SparkDecayPriority.Standard,
+    placementLogic: SparkPlacementLogic.Random
+}
+
+
+
 
 
 
 export const defaultSparks = [
-    sparks_mightGlimmer,
-    sparks_mightEmber,
+    sparks_mightGlimmer, sparks_mightEmber,
+    sparks_sightGlimmer, sparks_sightEmber,
+    sparks_wightGlimmer, sparks_wightEmber,
+    sparks_lightGlimmer, sparks_lightEmber,
+    sparks_dightGlimmer, sparks_dightEmber,
 
-    sparks_sightGlimmer,
-    sparks_sightEmber,
-
-    sparks_wightGlimmer,
-    sparks_wightEmber,
-
-    sparks_lightGlimmer,
-    sparks_lightEmber,
-
-    sparks_dightGlimmer,
-    sparks_dightEmber
+    sparks_pollenTuft, sparks_shiningDroplet
 ]
 
 
@@ -356,8 +396,134 @@ export const defaultLamps = [
                 spark: sparks_dightEmber
             }
         ]
+    },
+    {
+        id: 11,
+        name: "Blossoming Flower",
+        icon: blossoming_flower,
+        description: "Every turn, generates 3 Pollen Tufts",
+
+        rarity: LampRarity.Common,
+        timing: LampProcTiming.Every_Turn,
+        condition: LampProcCondition.No_Condition,
+
+        sparksGenerated: [
+            {
+                quantity: 3,
+                spark: sparks_pollenTuft
+            }
+        ]
+    },
+    {
+        id: 12,
+        name: "Shining Spring",
+        icon: shining_spring,
+        description: "Every turn, generates 1 Shining Droplet",
+
+        rarity: LampRarity.Common,
+        timing: LampProcTiming.Every_Turn,
+        condition: LampProcCondition.No_Condition,
+
+        sparksGenerated: [
+            {
+                quantity: 1,
+                spark: sparks_shiningDroplet
+            }
+        ]
+    },
+    {
+        id: 13,
+        name: "Resplendent Core",
+        icon: resplendent_core,
+        description: "Every turn, generates 3 Light Glimmers and 1 Light Ember",
+
+        rarity: LampRarity.Rare,
+        timing: LampProcTiming.Every_Turn,
+        condition: LampProcCondition.No_Condition,
+
+        sparksGenerated: [
+            {
+                quantity: 3,
+                spark: sparks_lightGlimmer
+            },
+            {
+                quantity: 1,
+                spark: sparks_lightEmber
+            }
+        ]
+    },
+    {
+        id: 14,
+        name: "Bismoth Mirror",
+        icon: bismoth_mirror,
+        description: "Every turn, generates 1 Glimmer for every attribute",
+
+        rarity: LampRarity.Rare,
+        timing: LampProcTiming.Every_Turn,
+        condition: LampProcCondition.No_Condition,
+
+        sparksGenerated: [
+            {
+                quantity: 1,
+                spark: sparks_mightGlimmer
+            },
+            {
+                quantity: 1,
+                spark: sparks_sightGlimmer
+            },
+            {
+                quantity: 1,
+                spark: sparks_wightGlimmer
+            },
+            {
+                quantity: 1,
+                spark: sparks_lightGlimmer
+            },
+            {
+                quantity: 1,
+                spark: sparks_dightGlimmer
+            }
+        ]
+    },
+    {
+        id: 15,
+        name: "Designer Lighter",
+        icon: designer_lighter,
+        description: "Every turn, generates 1 Light Ember and 1 Dight Ember",
+
+        rarity: LampRarity.Rare,
+        timing: LampProcTiming.Every_Turn,
+        condition: LampProcCondition.No_Condition,
+
+        sparksGenerated: [
+            {
+                quantity: 1,
+                spark: sparks_dightEmber
+            },
+            {
+                quantity: 1,
+                spark: sparks_lightEmber
+            }
+        ]
     }
-
-
-
 ];
+
+
+const TEMPLATELAMP =
+{
+    id: null,
+    name: "",
+    icon: null,
+    description: "",
+
+    rarity: LampRarity.Common,
+    timing: LampProcTiming.Every_Turn,
+    condition: LampProcCondition.No_Condition,
+
+    sparksGenerated: [
+        {
+            quantity: null,
+            spark: null
+        }
+    ]
+}

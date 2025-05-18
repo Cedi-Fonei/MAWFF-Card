@@ -15,7 +15,9 @@ export const TrainingEffectEnums = {
     Fluffiness: 5,
     SkillPoints: 6,
     Pollen: 7,
-    ExtraExperience: 8
+    ExtraExperience: 8,
+    JobSuccessRateBonus: 9,
+    TrainingSuccessRateBonus: 10
     // TODO consider additional effects, for Sparks
 }
 
@@ -49,6 +51,8 @@ export const SparkPlacementLogic = {
 
 export const LampRarity = {
     Common: 0,
+
+    // BELOW THIS LINE - not implemented yet!
     Rare: 1,
     Epic: 2,
     Legendary: 3

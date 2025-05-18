@@ -12,8 +12,9 @@ function TipsPanel() {
         /*4*/ "You can work jobs for lots of Pollen and some stats to boot, but they're hard! You'll need a good stat and trainee rank to handle them...",
         // ^ Latest real mechanics explanation.
         // v New mechanics below!
-        /*5*/ "Lamps create Sparks! Sparks buff training facilities when you use them, but they shuffle around and decay every turn.",
-        /*6*/ "More training mechanics will be added in future updates!"
+        /*5*/ "Every so often, you'll get Lamps. Lamps create Sparks that buff your training!",
+        /*6*/ "Every turn, 1 random Spark on every training will decay away. When you use a training, you consume ALL sparks on it.",
+        /*7*/ "More training mechanics will be added in future updates!"
     ];
 
     const newIndex = 5; 
