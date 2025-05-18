@@ -51,9 +51,9 @@ export const SparkPlacementLogic = {
 
 export const LampRarity = {
     Common: 0,
+    Rare: 1,
 
     // BELOW THIS LINE - not implemented yet!
-    Rare: 1,
     Epic: 2,
     Legendary: 3
 }

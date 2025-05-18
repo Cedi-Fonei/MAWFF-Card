@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 
-import { TrainingEffectEnums } from '../../utility/enums';
+import { LampRarity, TrainingEffectEnums } from '../../utility/enums';
 import { makeStartingCharacterSheet } from '../../utility/characterSheets';
 import { NewJobTurns, makeQuotas, makeJobs } from '../../utility/scenarioMechanics';
 import { calculateUnrandomizedTrainingEffects } from '../../utility/trainingModifiers';
@@ -94,6 +94,17 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
             return [];
     }, [acquiredLamps]);
 
+    function getLampRarityWeight(thisLamp) {
+        switch (thisLamp.rarity) {
+            case LampRarity.Common:
+                return 10;
+            case LampRarity.Rare:
+                return 3;
+            default:
+                return 0;
+        }
+    }
+
     const assignLampOffers = useCallback(() => {
         pushTurnMessage("You get to pick a NEW LAMP!");
         let lampsYetToOffer = [...unacquiredLamps];
@@ -101,17 +112,16 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
         let lampsPicked = [];
 
         for (let i = 0; i < 3; i++) {
-            // TODO; alter this below algorithm based on the rarity weights of every Lamp
-            let totalRandomnessWeight = lampsYetToOffer.length * 10;
+            let totalRandomnessWeight = 0;
+            lampsYetToOffer.forEach((l) => totalRandomnessWeight += getLampRarityWeight(l));
 
 
             let randomNumber = Math.floor(Math.random() * totalRandomnessWeight);
             let chosenIndex = -1;
             while (randomNumber >= 0) {
-                randomNumber -= 10;
                 chosenIndex++;
+                randomNumber -= getLampRarityWeight(lampsYetToOffer[chosenIndex]);
             }
-            // TODO; alter this above algorithm based on the rarity weights of every Lamp
 
             lampsPicked.push(lampsYetToOffer[chosenIndex]);
             lampsYetToOffer.splice(chosenIndex, 1);
@@ -148,6 +158,7 @@ function TrainingContainer({ name, pronouns, image, finalizeTraining }) {
             setHoveringEffects(null);
     }, [hoveringItem, hoveringJob]);
 
+    // TODO BUG - I think there may be some bug with calculating stamina changes using the Shining Droplet? Test that lamp before deploying
     const updateStamina = useCallback((staminaChange) => {
         if (staminaChange + stamina > maxStamina) {
             setStamina(maxStamina);
